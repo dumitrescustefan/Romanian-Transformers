@@ -1,3 +1,12 @@
+.idea/
+corpus/raw
+corpus/clean
+corpus/tmp
+corpus/ready
+corpus/merged
+corpus/segmented
+corpus/tokenized
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
