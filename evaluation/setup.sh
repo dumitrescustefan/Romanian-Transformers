@@ -36,9 +36,12 @@ nice_print "Downloading UD Romanian RRT..."
 if [ ! -d $rrtdir ]; then 
 	mkdir $rrtdir
 	cd $rrtdir
-	wget --no-hsts -O train.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-train.conllu
-	wget --no-hsts -O dev.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-dev.conllu
-	wget --no-hsts -O test.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-test.conllu
+	printf "Download train.conllu...\n"
+	curl -o train.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-train.conllu
+	printf "\nDownload dev.conllu...\n"
+	curl -o dev.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-dev.conllu
+	printf "\nDownload test.conllu...\n"
+	curl -o test.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-test.conllu
 	cd ..
 else
 	echo "UD Romanian RRT already downloaded."
@@ -49,7 +52,12 @@ nice_print "Downloading RONEC..."
 if [ ! -d $ronecdir ]; then
 	mkdir $ronecdir
 	cd $ronecdir
-	wget --no-hsts -O ronec.conllu https://github.com/dumitrescustefan/ronec/raw/master/ronec/conllup/raw/ronec_iob.conllup
+	printf "\nDownloading train.conllu...\n"
+	curl -o train.conllu https://raw.githubusercontent.com/dumitrescustefan/ronec/master/ronec/conllup/raw/train.conllu
+	printf "\nDownloading dev.conllu...\n"
+	curl -o dev.conllu https://raw.githubusercontent.com/dumitrescustefan/ronec/master/ronec/conllup/raw/dev.conllu
+	printf "\nDownloading test.conllu...\n"
+	curl -o test.conllu https://raw.githubusercontent.com/dumitrescustefan/ronec/master/ronec/conllup/raw/test.conllu
 	cd ..
 else
 	echo "RONEC already downloaded."
