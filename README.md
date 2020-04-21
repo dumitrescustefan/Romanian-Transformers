@@ -39,15 +39,15 @@ last_hidden_states = outputs[0]  # The last hidden-state is the first element of
 
 ## Evaluation
 
-Evaluation is performed on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) tasks as well as on a [NER](https://github.com/dumitrescustefan/ronec) task. Details are given in the [evaluation readme](evauation/README.md). 
+Evaluation is performed by using a frozen model (UPOS and XPOS) and [Udify](https://github.com/Hyperparticle/udify) (LAS) on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html), as well as a frozen model on [RONEC](https://github.com/dumitrescustefan/ronec) (NER). Details are given in the [evaluation readme](evauation/README.md). 
 The baseline is the multilingual [mBERT](https://github.com/google-research/bert/blob/master/multilingual.md) model, as currently it is the only available model that works on Romanian.
 
-| Model                          |  UPOS |  XPOS |  NER  |  LAS  |
-|--------------------------------|:-----:|:-----:|:-----:|:-----:|
-| bert-base-multilingual-uncased |   -   |   -   | 68.91 | 88.09 |
-| bert-base-multilingual-cased   | 94.69 | 90.37 | 69.95 | 88.55 |
-| bert-base-romanian-uncased-v1  |   -   |   -   |   -   | 89.84 |
-| bert-base-romanian-cased-v1    |   -   |   -   |   -   | **90.06** |
+| Model                          | Type |  UPOS |  XPOS |  NER  |  LAS  |
+|--------------------------------|:----:|:-----:|:-----:|:-----:|:-----:|
+| bert-base-multilingual-uncased | BERT |   -   |   -   | 68.91 | 88.09 |
+| bert-base-multilingual-cased   | BERT | 94.69 | 90.37 | 69.95 | 88.55 |
+| bert-base-romanian-uncased-v1  | BERT |   -   |   -   |   -   | 89.84 |
+| bert-base-romanian-cased-v1    | BERT |   -   |   -   |   -   | **90.06** |
 
 ## Corpus 
 
