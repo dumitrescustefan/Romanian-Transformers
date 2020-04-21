@@ -37,11 +37,11 @@ if [ ! -d $rrtdir ]; then
 	mkdir $rrtdir
 	cd $rrtdir
 	printf "Download train.conllu...\n"
-	curl -o train.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-train.conllu
+	curl -o train.conllu https://raw.githubusercontent.com/UniversalDependencies/UD_Romanian-RRT/master/ro_rrt-ud-train.conllu
 	printf "\nDownload dev.conllu...\n"
-	curl -o dev.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-dev.conllu
+	curl -o dev.conllu https://raw.githubusercontent.com/UniversalDependencies/UD_Romanian-RRT/master/ro_rrt-ud-dev.conllu
 	printf "\nDownload test.conllu...\n"
-	curl -o test.conllu https://github.com/UniversalDependencies/UD_Romanian-RRT/raw/master/ro_rrt-ud-test.conllu
+	curl -o test.conllu https://raw.githubusercontent.com/UniversalDependencies/UD_Romanian-RRT/master/ro_rrt-ud-test.conllu
 	cd ..
 else
 	echo "UD Romanian RRT already downloaded."
