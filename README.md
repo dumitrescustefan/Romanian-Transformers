@@ -26,7 +26,7 @@ import torch
 
 # load tokenizer and model
 tokenizer = AutoTokenizer.from_pretrained("dumitrescustefan/bert-base-romanian-cased-v1")
-model = AutoModelWithLMHead.from_pretrained("dumitrescustefan/bert-base-romanian-cased-v1")
+model = AutoModel.from_pretrained("dumitrescustefan/bert-base-romanian-cased-v1")
 
 # tokenize a sentence and run through the model
 input_ids = torch.tensor(tokenizer.encode("Acesta este un test.", add_special_tokens=True)).unsqueeze(0)  # Batch size 1
@@ -42,23 +42,12 @@ last_hidden_states = outputs[0]  # The last hidden-state is the first element of
 Evaluation is performed on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) tasks as well as on a [NER](https://github.com/dumitrescustefan/ronec) task. Details are given in the [evaluation readme](evauation/README.md). 
 The baseline is the multilingual [mBert](https://github.com/google-research/bert/blob/master/multilingual.md) model, as currently it is the only available model that works on Romanian.
 
-##### Universal Dependencies evaluation
-
-| Type 	        | Model Name               	        | UPOS (frozen) 	| XPOS (frozen) 	| UPOS (UDify) 	| UFeats (UDify) 	| Lemmas (UDify) 	| LAS (UDify) 	|
-|------------	|-------------------------------	|:-------------:	|:-------------:	|:------------:	|:--------------:	|:--------------:	|:-----------:	|
-| BERT       	| mBert-base-cased                 	|       90      	|               	|              	|                	|                	|             	|
-| BERT       	| mBert-base-uncased               	|               	|               	|              	|                	|                	|             	|
-| BERT       	| bert-base-romanian-cased-v1   	|               	|               	|              	|                	|                	|             	|
-| BERT       	| bert-base-romanian-uncased-v1 	|               	|               	|              	|                	|                	|             	|
-
-##### Named Entity Recognition evaluation:
-
-| Type 	| Model | Entity Type | Partial | Strict | Exact | 
-|------------	| --- | :---: | :---: | :---: | :---: | 
-| BERT       	| mBert-base-cased (frozen) | 73.31 | 74.35 | 65.89 | 69.95 | 
-| BERT       	| mBert-base-uncased (frozen) | 72.96 | 73.33 | 65.07 | 68.91 | 
-| BERT       	| bert-base-romanian-cased-v1 | 70.36 | 71.05 | 62.46 | 66.55 | 
-| BERT       	| bert-base-romanian-uncased-v1 | 70.36 | 71.05 | 62.46 | 66.55 | 
+| Model                          |  UPOS |  XPOS |  NER  |  LAS  |
+|--------------------------------|:-----:|:-----:|:-----:|:-----:|
+| bert-base-multilingual-uncased |   -   |   -   | 68.91 | 88.09 |
+| bert-base-multilingual-cased   | 94.69 | 90.37 | 69.95 | 88.55 |
+| bert-base-romanian-uncased-v1  |   -   |   -   |   -   | 89.84 |
+| bert-base-romanian-cased-v1    |   -   |   -   |   -   | 90.06 |
 
 ## Corpus 
 
@@ -70,7 +59,6 @@ The **standard** models (non-finetuned) are trained on the following corpora (st
 | OSCAR     	|   33.56  	|  1725.82 	|  11.411  	|    11    	|
 | Wikipedia 	|   1.54   	|   60.47  	|   0.411  	|    0.4   	|
 | **Total**     	|   **90.15**  	|  **2421.33** 	|  **15.867**  	|   **15.2**   	|
-
 
 ## Help us out
 
