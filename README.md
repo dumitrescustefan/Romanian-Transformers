@@ -1,5 +1,5 @@
-![](https://img.shields.io/badge/Python-3-brightgreen)
-![](https://img.shields.io/badge/Latest%20BERT-v1.0-informational)
+![Python](https://img.shields.io/badge/Python-3-brightgreen)
+![Latest%20BERT](https://img.shields.io/badge/Latest%20BERT-v1.0-informational)
 
 # Romanian Transformers
 
@@ -14,8 +14,8 @@ We're using [HuggingFace's Transformers](https://github.com/huggingface/transfor
 
 | Model name                    	| Task fine-tuned               	| Version/Date       	|
 |-------------------------------	|--------------------------	|--------------------	|
-| [bert-base-romanian-cased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-cased-v1)   	    | Standard (no fine-tuning) 	| ![](https://img.shields.io/badge/v1.0-21%20Apr%202020-ff6666) 	|
-| [bert-base-romanian-uncased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-uncased-v1) 	| Standard (no fine-tuning) 	| ![](https://img.shields.io/badge/v1.0-21%20Apr%202020-ff6666) 	|
+| [bert-base-romanian-cased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-cased-v1)   	    | Standard (no fine-tuning) 	| ![v1.0](https://img.shields.io/badge/v1.0-21%20Apr%202020-ff6666) 	|
+| [bert-base-romanian-uncased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-uncased-v1) 	| Standard (no fine-tuning) 	| ![v1.0](https://img.shields.io/badge/v1.0-21%20Apr%202020-ff6666) 	|
 
 ## How to use
 
