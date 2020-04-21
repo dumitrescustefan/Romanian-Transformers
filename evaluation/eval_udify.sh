@@ -25,13 +25,7 @@ fi
 if [ -n "$2" ]; then
 	device=$2
 else
-	if [ -n "which nvcc" ]
-	then
-		device="cuda"
-	else
-		printf "\nWARNING: Nvidia driver was not automatically detected. The training will start on cpu. If you are sure you have cuda installed, please specify the specific driver as the second argument to the script.\n"
-		device="cpu"
-	fi
+	device="cuda"
 fi
 
 nice_print "Training Udify model on UD Romanian RRT..."
