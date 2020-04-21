@@ -47,7 +47,7 @@ The baseline is the multilingual [mBERT](https://github.com/google-research/bert
 | bert-base-multilingual-uncased |   -   |   -   | 68.91 | 88.09 |
 | bert-base-multilingual-cased   | 94.69 | 90.37 | 69.95 | 88.55 |
 | bert-base-romanian-uncased-v1  |   -   |   -   |   -   | 89.84 |
-| bert-base-romanian-cased-v1    |   -   |   -   |   -   | 90.06 |
+| bert-base-romanian-cased-v1    |   -   |   -   |   -   | **90.06** |
 
 ## Corpus 
 
