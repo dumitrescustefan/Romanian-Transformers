@@ -1,4 +1,3 @@
-.idea/
 corpus/raw
 corpus/clean
 corpus/tmp
@@ -6,6 +5,11 @@ corpus/ready
 corpus/merged
 corpus/segmented
 corpus/tokenized
+evaluation/dataset-*
+evaluation/models
+evaluation/udify
+
+.idea/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
