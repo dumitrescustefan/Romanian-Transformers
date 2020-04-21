@@ -12,16 +12,16 @@ We're using [HuggingFace's Transformers](https://github.com/huggingface/transfor
 
 #### BERT
 
-| Model name                    	| Fine-tuned               	| Version/Date       	|
+| Model name                    	| Task fine-tuned               	| Version/Date       	|
 |-------------------------------	|--------------------------	|--------------------	|
-| [bert-base-romanian-cased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-cased-v1)   	    | Standard (no-finetuning) 	| v1.0 / 21 Apr 2020 	|
-| [bert-base-romanian-uncased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-uncased-v1) 	| Standard (no-finetuning) 	| v1.0 / 21 Apr 2020 	|
+| [bert-base-romanian-cased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-cased-v1)   	    | Standard (no fine-tuning) 	| ![](https://img.shields.io/badge/v1.0-21%20Apr%202020-ff6666) 	|
+| [bert-base-romanian-uncased-v1](https://huggingface.co/dumitrescustefan/bert-base-romanian-uncased-v1) 	| Standard (no fine-tuning) 	| ![](https://img.shields.io/badge/v1.0-21%20Apr%202020-ff6666) 	|
 
 ## How to use
 
 Using HuggingFace's Transformers lib, instantiate a model and replace the model name name as necessary:
 ```python
-from transformers import AutoTokenizer, AutoModelWithLMHead
+from transformers import AutoTokenizer, AutoModel
 import torch
 
 # load tokenizer and model
@@ -39,8 +39,9 @@ last_hidden_states = outputs[0]  # The last hidden-state is the first element of
 
 ## Evaluation
 
-Evaluation is performed by using a frozen model (UPOS and XPOS) and [Udify](https://github.com/Hyperparticle/udify) (LAS) on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html), as well as a frozen model on [RONEC](https://github.com/dumitrescustefan/ronec) (NER). Details are given in the [evaluation readme](evaluation/README.md). 
-The baseline is the multilingual [mBERT](https://github.com/google-research/bert/blob/master/multilingual.md) model, as currently it is the only available model that works on Romanian.
+Evaluation is performed on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) UPOS, XPOS and LAS, and on a NER task based on [RONEC](https://github.com/dumitrescustefan/ronec). Details, as well as more in-depth tests not shown here, are given in the dedicated [evaluation page](evaluation/README.md). 
+
+The baseline is the [mBert](https://github.com/google-research/bert/blob/master/multilingual.md) model ``bert-base-multilingual-(un)cased``, as currently it is the only available model that works on Romanian.
 
 | Model                          | Type |  UPOS |  XPOS |  NER  |  LAS  |
 |--------------------------------|:----:|:-----:|:-----:|:-----:|:-----:|
