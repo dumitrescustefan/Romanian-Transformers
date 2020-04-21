@@ -40,7 +40,7 @@ last_hidden_states = outputs[0]  # The last hidden-state is the first element of
 ## Evaluation
 
 Evaluation is performed on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) tasks as well as on a [NER](https://github.com/dumitrescustefan/ronec) task. Details are given in the [evaluation readme](evauation/README.md). 
-The baseline is the multilingual [mBert](https://github.com/google-research/bert/blob/master/multilingual.md) model, as currently it is the only available model that works on Romanian.
+The baseline is the multilingual [mBERT](https://github.com/google-research/bert/blob/master/multilingual.md) model, as currently it is the only available model that works on Romanian.
 
 | Model                          |  UPOS |  XPOS |  NER  |  LAS  |
 |--------------------------------|:-----:|:-----:|:-----:|:-----:|
