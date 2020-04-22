@@ -18,17 +18,31 @@ else
 	model=$1
 fi
 
+device="cuda"
+
 if [ -n "$2" ]; then
-	device=$2
+  if  [[ "$2" =~ ^[0-9]+$ ]]
+  then
+	  iterations=$2
+	else
+	  device="$2"
+	  iterations=1
+	fi
 else
-	device="cuda"
+	iterations=1
+fi
+
+if [ -n "$3" ]; then
+	device="$3"
 fi
 
 model_dirs=("models/$model/rrt_upos_frozen" "models/$model/rrt_xpos_frozen" "models/$model/rrt_upos" "models/$model/rrt_xpos")
 output_paths=("output/$model/predict_rrt_upos_frozen.conllu" "output/$model/predict_rrt_xpos_frozen.conllu" "output/$model/predict_rrt_upos.conllu" "output/$model/predict_rrt_xpos.conllu")
+result_paths=("results/$model/rrt_upos_frozen.txt" "results/$model/rrt_xpos_frozen.txt" "results/$model/rrt_upos.txt" "results/$model/rrt_upos.txt" )
 goals=("UPOS" "XPOS" "UPOS" "XPOS")
 predict_cols=(3 4 3 4)
 frozen=(true true false false)
+batch_sizes=(128 128 32 32)
 
 nice_print "Training model on UD Romanian RRT..."
 
@@ -37,7 +51,7 @@ do
   printf "Model: %s\n" "$1"
   printf "Save path: %s\n" "${model_dirs[i]}"
   printf "Frozen: %s\n" "${frozen[i]}"
-  printf "Device: %s\n" $device
+  printf "Device: %s\n" "$device"
   printf "Training goal: %s\n\n" "${goals[i]}"
 
 
@@ -53,7 +67,7 @@ do
     learning_rate=2e-4
   fi
 
-  python3 tools/train.py dataset-rrt/train.conllu dataset-rrt/dev.conllu "${predict_cols[i]}" --save_path "${model_dirs[i]}" --lang_model_name "$model" --device $device $fine_tune --epochs $epochs --learning_rate $learning_rate
+  python3 tools/train.py dataset-rrt/train.conllu dataset-rrt/dev.conllu "${predict_cols[i]}" --save_path "${model_dirs[i]}" --lang_model_name "$model" --device $device $fine_tune --epochs $epochs --learning_rate $learning_rate --batch_size "${batch_sizes[i]}" --iterations "$iterations"
 
   printf "\nFinished.\n"
 
@@ -63,6 +77,7 @@ done
 nice_print "Evaluating model on UD Romanian RRT..."
 
 [ ! -d "output/$model" ] && mkdir "output/$model"
+[ ! -d "results/$model" ] && mkdir -p "results/$model"
 
 for i in {0..3}
 do
@@ -71,11 +86,7 @@ do
 	printf "Device: %s\n" $device
 	printf "Evaluation goal: %s\n\n" "${goals[i]}"
 
-	python3 tools/predict.py dataset-rrt/test.conllu "${model_dirs[i]}" "${predict_cols[i]}" --lang_model_name "$model" --output_path "${output_paths[i]}" --device $device
-
-	output=$(python3 tools/ud_eval.py dataset-rrt/test.conllu "${output_paths[i]}"  --verbose)
-	echo "$output" | head -n 2
-	echo "$output" | sed "$((${predict_cols[i]} + 3))q;d"
+	python3 tools/predict.py dataset-rrt/test.conllu "${model_dirs[i]}" "${predict_cols[i]}" --lang_model_name "$model" --output_path "${output_paths[i]}" --device $device --iterations "$iterations"
 
 	printf "\nFinished.\n"
 
