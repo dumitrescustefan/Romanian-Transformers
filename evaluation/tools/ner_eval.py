@@ -447,10 +447,11 @@ def compute_precision_recall_wrapper(results):
 
 
 def main():
-    list_gold = []
-    list_pred = []
+    print()
 
-    with open(args.gold_file, "r", encoding='utf-8') as gold_file:
+    list_gold = []
+
+    with open(args.gold_path, "r", encoding='utf-8') as gold_file:
         list_sent = []
 
         for line in gold_file:
@@ -462,63 +463,81 @@ def main():
                     list_gold.append(list_sent)
                     list_sent = []
 
-    with open(args.pred_file, "r", encoding='utf-8') as pred_file:
-        list_sent = []
+    metrics = ["Entity Type", "Partial", "Strict", "Exact"]
+    dict_prec = {metric: 0 for metric in metrics}
+    dict_rec = {metric: 0 for metric in metrics}
+    dict_f1 = {metric: 0 for metric in metrics}
 
-        for line in pred_file:
-            if not line.startswith("#"):
-                if line != "\n":
-                    tokens = line.split("\t")
-                    list_sent.append(tokens[-1].replace("\n", ""))
-                else:
-                    list_pred.append(list_sent)
-                    list_sent = []
+    for it in range(args.iterations):
+        list_pred = []
+        pred_path = args.pred_path.split(".")[0] + "_{}.".format(it + 1) + args.pred_path.split(".")[1]
 
-    assert len(list_pred) == len(list_gold)
+        with open(pred_path, "r", encoding='utf-8') as pred_file:
+            list_sent = []
 
-    evaluator = Evaluator(list_gold, list_pred, tags=["PERSON",
-                                                      "NAT_REL_POL",
-                                                      "ORGANIZATION",
-                                                      "GPE",
-                                                      "LOC",
-                                                      "FACILITY",
-                                                      "PRODUCT",
-                                                      "EVENT",
-                                                      "LANGUAGE",
-                                                      "WORK_OF_ART",
-                                                      "DATETIME",
-                                                      "PERIOD",
-                                                      "MONEY",
-                                                      "QUANTITY",
-                                                      "NUMERIC_VALUE",
-                                                      "ORDINAL"])
+            for line in pred_file:
+                if not line.startswith("#"):
+                    if line != "\n":
+                        tokens = line.split("\t")
+                        list_sent.append(tokens[-1].replace("\n", ""))
+                    else:
+                        list_pred.append(list_sent)
+                        list_sent = []
 
-    results, results_agg = evaluator.evaluate()
+        assert len(list_pred) == len(list_gold)
 
-    # with open("results/metrics.txt", "w") as file:
-    #     for metric, values in results.items():
-    #         prec = values["precision"]
-    #         rec = values["recall"]
-    #         f1 = 2 * prec * rec / (prec + rec)
-    #
-    #         file.write("{}: {:.2f}, ".format(metric, f1 * 100))
+        evaluator = Evaluator(list_gold, list_pred, tags=["PERSON",
+                                                          "NAT_REL_POL",
+                                                          "ORGANIZATION",
+                                                          "GPE",
+                                                          "LOC",
+                                                          "FACILITY",
+                                                          "PRODUCT",
+                                                          "EVENT",
+                                                          "LANGUAGE",
+                                                          "WORK_OF_ART",
+                                                          "DATETIME",
+                                                          "PERIOD",
+                                                          "MONEY",
+                                                          "QUANTITY",
+                                                          "NUMERIC_VALUE",
+                                                          "ORDINAL"])
 
+        results, results_agg = evaluator.evaluate()
+
+        print("Model: {}\n".format(it + 1))
+        print("|{:^9s}     |{:^11s}|{:^11s}|{:^11s}|".format("Metric", "Precision", "Recall", "F1 Score"))
+        print("+--------------+-----------+-----------+-----------+")
+
+        for metric, values in zip(metrics, results.values()):
+            prec = values["precision"]
+            rec = values["recall"]
+            f1 = 2 * prec * rec / (prec + rec)
+
+            dict_prec[metric] += prec
+            dict_rec[metric] += rec
+            dict_f1[metric] += f1
+
+            print("| {:13s}|{:^11.2f}|{:^11.2f}|{:^11.2f}|".format(metric, prec * 100, rec * 100, f1*100))
+
+        print("\n")
+
+    print("Model: average")
     print("|{:^9s}     |{:^11s}|{:^11s}|{:^11s}|".format("Metric", "Precision", "Recall", "F1 Score"))
     print("+--------------+-----------+-----------+-----------+")
 
-    metrics = ["Entity Type", "Partial", "Strict", "Exact"]
-    for metric, values in zip(metrics, results.values()):
-        prec = values["precision"]
-        rec = values["recall"]
-        f1 = 2 * prec * rec / (prec + rec)
-
-        print("| {:13s}|{:^11.2f}|{:^11.2f}|{:^11.2f}|".format(metric, prec * 100, rec * 100, f1*100))
+    for metric in metrics:
+        print("| {:13s}|{:^11.2f}|{:^11.2f}|{:^11.2f}|".format(metric,
+                                                               dict_prec[metric] / args.iterations * 100,
+                                                               dict_rec[metric] / args.iterations * 100,
+                                                               dict_f1[metric] / args.iterations * 100))
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("gold_file")
-    parser.add_argument("pred_file")
+    parser.add_argument("gold_path")
+    parser.add_argument("pred_path")
+    parser.add_argument("--iterations", type=int, default=1)
 
     args = parser.parse_args()
 

@@ -92,4 +92,4 @@ def print_info(target_classes, weights, label_encoder, lang_model_name, fine_tun
     print("\tTarget classes: {}".format([label_encoder.inverse_transform([target_class])[0] for target_class in target_classes]))
     print("\tAll classes: {}".format(label_encoder.classes_.tolist()))
     print("\tLabel Weights: {}".format(weights.tolist()))
-    print("\tDevice: {}".format(device))
+    print("\tDevice: {}\n".format(device))

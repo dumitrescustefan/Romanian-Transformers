@@ -4,6 +4,7 @@ import os
 import pickle
 from load import load_data_from_file
 from transformers import *
+from tqdm import tqdm
 
 
 def main():
@@ -25,56 +26,66 @@ def main():
 
     tokenizer = AutoTokenizer.from_pretrained(args.lang_model_name)
 
-    model = torch.load(os.path.join(args.model_path, "model.pt"), map_location=args.device)
-    model.fine_tune = False
-    model.eval()
+    it_tqdm = tqdm(range(args.iterations))
 
-    list_labels = []
+    for it in it_tqdm:
+        it_tqdm.set_description("Evaluating model no: {}/{}".format(it + 1, args.iterations))
+        it_tqdm.refresh()
 
-    for i, (test_x, _, mask) in enumerate(test_loader):
-        print("\rPredicting tags for sentence: {}/{}...".format(i, len(test_loader.dataset)), end='')
-        logits = model.forward(test_x, mask)
-        preds = torch.argmax(logits, 2)
+        model = torch.load(os.path.join(args.model_path, "model_{}.pt".format(it + 1)), map_location=args.device)
+        model.fine_tune = False
+        model.eval()
 
-        end = torch.argmax(mask, dim=1)
+        list_labels = []
 
-        labels = label_encoder.inverse_transform(preds[0][1:end].tolist())
-        list_labels.append(labels)
+        test_tqdm = tqdm(test_loader, leave=False)
+        for i, (test_x, _, mask) in enumerate(test_tqdm):
+            test_tqdm.set_description("    Predicting tags for sentence: {}/{}...".format(i + 1, len(test_loader.dataset)))
+            test_tqdm.refresh()
 
-    print("\n")
+            logits = model.forward(test_x, mask)
+            preds = torch.argmax(logits, 2)
 
-    with(open(os.path.join(args.test_path), "r", encoding='utf-8')) as in_file, \
-         open(os.path.join(args.output_path), "w", encoding='utf-8') as out_file:
-        sentence_idx = 0
-        label_idx = 0
+            end = torch.argmax(mask, dim=1)
 
-        for line in in_file:
-            if not line.startswith("#"):
-                if line not in [" ", "\n"]:
-                    tokens = line.split(args.separator)
+            labels = label_encoder.inverse_transform(preds[0][1:end].tolist())
+            list_labels.append(labels)
 
-                    token = tokens[args.token_column]
-                    subtokens = tokenizer.encode(token, add_special_tokens=False)
+        output_path = args.output_path.split(".")[0] + "_{}.".format(it + 1) + args.output_path.split(".")[1]
 
-                    # print(len(subtokens), label_idx)
+        with(open(os.path.join(args.test_path), "r", encoding='utf-8')) as in_file, \
+             open(os.path.join(output_path), "w", encoding='utf-8') as out_file:
 
-                    tokens[args.predict_column] = list_labels[sentence_idx][label_idx]
+            sentence_idx = 0
+            label_idx = 0
 
-                    label_idx += len(subtokens)
+            for line in in_file:
+                if not line.startswith("#"):
+                    if line not in [" ", "\n"]:
+                        tokens = line.split(args.separator)
 
-                    for token in tokens[:-1]:
-                        out_file.write("{}{}".format(token, args.separator))
+                        token = tokens[args.token_column]
+                        subtokens = tokenizer.encode(token, add_special_tokens=False)
 
-                    out_file.write("{}".format(tokens[-1] + "\n" if "\n" not in tokens[-1] else tokens[-1]))
+                        # print(len(subtokens), label_idx)
+
+                        tokens[args.predict_column] = list_labels[sentence_idx][label_idx]
+
+                        label_idx += len(subtokens)
+
+                        for token in tokens[:-1]:
+                            out_file.write("{}{}".format(token, args.separator))
+
+                        out_file.write("{}".format(tokens[-1] + "\n" if "\n" not in tokens[-1] else tokens[-1]))
+                    else:
+                        # print(label_idx, len(curr_labels))
+                        assert label_idx == len(list_labels[sentence_idx])
+
+                        out_file.write("\n")
+                        sentence_idx += 1
+                        label_idx = 0
                 else:
-                    # print(label_idx, len(curr_labels))
-                    assert label_idx == len(list_labels[sentence_idx])
-
-                    out_file.write("\n")
-                    sentence_idx += 1
-                    label_idx = 0
-            else:
-                out_file.write(line)
+                    out_file.write(line)
 
 
 if __name__ == "__main__":
@@ -85,6 +96,7 @@ if __name__ == "__main__":
     parser.add_argument("--lang_model_name", type=str, default="bert-base-cased")
     parser.add_argument("--token_column", type=int, default=0)
     parser.add_argument("--output_path", type=str, default="output/predict.conllu")
+    parser.add_argument("--iterations", type=int, default=1)
     parser.add_argument("--separator", type=str, default="\t")
     parser.add_argument("--pad_label", type=str, default="<pad>")
     parser.add_argument("--null_label", type=str, default="<X>")
