@@ -28,7 +28,7 @@ def load_data_from_file(path,
 
         for line in file:
             if not line.startswith("#"):
-                if line is not "\n":
+                if line != "\n":
                     tokens = line.split(separator)
 
                     token = tokens[tokens_column]
