@@ -21,7 +21,7 @@ fi
 device="cuda"
 
 if [ -n "$2" ]; then
-  if  [[ "$scale" =~ ^[0-9]+$ ]]
+  if  [[ "$2" =~ ^[0-9]+$ ]]
   then
 	  iterations=$2
 	else
