@@ -61,7 +61,7 @@ printf "Device: %s\n" $device
 
 [ ! -d "$model_dir" ] && mkdir -p "$model_dir"
 
-python3 tools/train.py dataset-ronec/train.conllu dataset-ronec/dev.conllu 10 --save_path "$model_dir" --lang_model_name "$model" --device $device --fine_tune --epochs 3 --learning_rate 2e-5 --iterations "$iterations" --batch_size 32
+python3 tools/train.py dataset-ronec/train.conllu dataset-ronec/dev.conllu 10 --save_path "$model_dir" --lang_model_name "$model" --device $device --fine_tune --epochs 5 --learning_rate 2e-5 --iterations "$iterations" --batch_size 32
 
 printf "\nFinished.\n"
 
