@@ -29,7 +29,7 @@ def train_model(model,
                                                 num_training_steps=total_steps)
 
     # epoch loop
-    for epoch in range(2):
+    for epoch in range(args.epochs):
         train_tqdm = tqdm(train_loader, leave=False)
 
         model.train()
