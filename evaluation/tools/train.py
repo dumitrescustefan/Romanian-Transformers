@@ -91,6 +91,8 @@ def train(train_loader, dev_loader, label_encoder, device):
     it_tqdm = tqdm(range(args.iterations))
     results = []
 
+    AutoModel.from_pretrained(args.lang_model_name)
+
     it_tqdm.set_description("Iteration: {}/{}, Results F1: {}, Mean F1: {:.4f}"
                             .format(1, args.iterations, [], 0))
     it_tqdm.refresh()
