@@ -520,7 +520,9 @@ def main():
 
             print("| {:13s}|{:^11.2f}|{:^11.2f}|{:^11.2f}|".format(metric, prec * 100, rec * 100, f1*100))
 
-        print("\n")
+        print()
+        print("+--------------------------------------------------+")
+        print()
 
     print("Model: average")
     print("|{:^9s}     |{:^11s}|{:^11s}|{:^11s}|".format("Metric", "Precision", "Recall", "F1 Score"))
