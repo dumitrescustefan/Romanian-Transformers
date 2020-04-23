@@ -37,7 +37,10 @@ cp "$udify_original_config" "$udify_config"
 
 sed -i '11i\        "pretrained_model": "'"$model"'",' "$udify_config"
 
-sed -i '83i\    "cuda_device": -1,' "$udify_config" 
+if [ "$device" == "cpu" ]
+then
+  sed -i '83i\    "cuda_device": -1,' "$udify_config"
+fi
 
 [ -d "$save_path" ] && rm -r "$save_path"
 
