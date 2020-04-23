@@ -46,11 +46,11 @@ sed -i '83i\    "cuda_device": -1,' "$udify_config"
 nice_print "Evaluating Udify model on UD Romanian RRT..."
 
 [ ! -d "../models/$model" ] && mkdir -p "../models/$model"
-[ ! -d "../output/$model" ] && mkdir -p "../output/$model"
+[ ! -d "../outputs/$model" ] && mkdir -p "../outputs/$model"
 
 model_path="$(find $save_path -name model.tar.gz)"
 cp "$model_path" "../models/$model/udify-model.tar.gz"
 
-python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../output/$model/predict.udify.conllu" --device -1
+python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model/predict.udify.conllu" --device -1
 
 cd ..

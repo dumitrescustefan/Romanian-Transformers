@@ -97,6 +97,7 @@ import io
 import sys
 import unicodedata
 import unittest
+import os
 
 # CoNLL-U column names
 ID, FORM, LEMMA, UPOS, XPOS, FEATS, HEAD, DEPREL, DEPS, MISC = range(10)
@@ -477,11 +478,67 @@ def load_conllu_file(path):
     _file = open(path, mode="r", **({"encoding": "utf-8"} if sys.version_info >= (3, 0) else {}))
     return load_conllu(_file)
 
+
 def evaluate_wrapper(args):
     # Load CoNLL-U files
-    gold_ud = load_conllu_file(args.gold_file)
-    system_ud = load_conllu_file(args.system_file)
-    return evaluate(gold_ud, system_ud)
+    dict_metrics = {}
+
+    for it in range(args.iterations):
+        system_file = args.system_file.split(".")[0] + "_{}.".format(it + 1) + args.system_file.split(".")[1]
+
+        gold_ud = load_conllu_file(args.gold_file)
+        system_ud = load_conllu_file(system_file)
+        evaluation = evaluate(gold_ud, system_ud)
+
+        print("Model: {}\n".format(it + 1))
+        print("Metric     | Precision |    Recall |  F1 Score | AligndAcc")
+        print("-----------+-----------+-----------+-----------+-----------")
+        for metric in ["Tokens", "Sentences", "Words", "UPOS", "XPOS", "UFeats", "AllTags", "Lemmas", "UAS", "LAS",
+                       "CLAS", "MLAS", "BLEX"]:
+            if metric not in dict_metrics:
+                dict_metrics[metric] = {}
+
+                dict_metrics[metric]["precision"] = evaluation[metric].precision
+                dict_metrics[metric]["recall"] = evaluation[metric].recall
+                dict_metrics[metric]["f1"] = evaluation[metric].f1
+                dict_metrics[metric]["aligned_accuracy"] = evaluation[metric].aligned_accuracy
+            else:
+                dict_metrics[metric]["precision"] += evaluation[metric].precision
+                dict_metrics[metric]["recall"] += evaluation[metric].recall
+                dict_metrics[metric]["f1"] += evaluation[metric].f1
+                if evaluation[metric].aligned_accuracy is not None:
+                    dict_metrics[metric]["aligned_accuracy"] += evaluation[metric].aligned_accuracy
+
+            print("{:11}|{:10.2f} |{:10.2f} |{:10.2f} |{}".format(
+                metric,
+                100 * evaluation[metric].precision,
+                100 * evaluation[metric].recall,
+                100 * evaluation[metric].f1,
+                "{:10.2f}".format(100 * evaluation[metric].aligned_accuracy) if evaluation[
+                                                                                    metric].aligned_accuracy is not None else ""
+            ))
+
+        print()
+        print("-----------------------------------------------------------")
+        print()
+
+    print("Model: average\n")
+    print("Metric     | Precision |    Recall |  F1 Score | AligndAcc")
+    print("-----------+-----------+-----------+-----------+-----------")
+    for metric in ["Tokens", "Sentences", "Words", "UPOS", "XPOS", "UFeats", "AllTags", "Lemmas", "UAS", "LAS",
+                   "CLAS", "MLAS", "BLEX"]:
+            print("{:11}|{:10.2f} |{:10.2f} |{:10.2f} |{}".format(
+                metric,
+                100 * dict_metrics[metric]["precision"] / args.iterations,
+                100 * dict_metrics[metric]["recall"] / args.iterations,
+                100 * dict_metrics[metric]["f1"] / args.iterations,
+                "{:10.2f}".format(100 * dict_metrics[metric]["aligned_accuracy"] / args.iterations) if dict_metrics[metric]["aligned_accuracy"] is not None else ""
+            ))
+
+    print()
+    print("-----------------------------------------------------------")
+    print()
+
 
 def main():
     # Parse arguments
@@ -490,43 +547,14 @@ def main():
                         help="Name of the CoNLL-U file with the gold data.")
     parser.add_argument("system_file", type=str,
                         help="Name of the CoNLL-U file with the predicted data.")
-    parser.add_argument("--verbose", "-v", default=False, action="store_true",
-                        help="Print all metrics.")
+    parser.add_argument("--iterations", type=int, default=1)
     parser.add_argument("--counts", "-c", default=False, action="store_true",
                         help="Print raw counts of correct/gold/system/aligned words instead of prec/rec/F1 for all metrics.")
     args = parser.parse_args()
 
     # Evaluate
-    evaluation = evaluate_wrapper(args)
+    evaluate_wrapper(args)
 
-    # Print the evaluation
-    if not args.verbose and not args.counts:
-        print("LAS F1 Score: {:.2f}".format(100 * evaluation["LAS"].f1))
-        print("MLAS Score: {:.2f}".format(100 * evaluation["MLAS"].f1))
-        print("BLEX Score: {:.2f}".format(100 * evaluation["BLEX"].f1))
-    else:
-        if args.counts:
-            print("Metric     | Correct   |      Gold | Predicted | Aligned")
-        else:
-            print("Metric     | Precision |    Recall |  F1 Score | AligndAcc")
-        print("-----------+-----------+-----------+-----------+-----------")
-        for metric in["Tokens", "Sentences", "Words", "UPOS", "XPOS", "UFeats", "AllTags", "Lemmas", "UAS", "LAS", "CLAS", "MLAS", "BLEX"]:
-            if args.counts:
-                print("{:11}|{:10} |{:10} |{:10} |{:10}".format(
-                    metric,
-                    evaluation[metric].correct,
-                    evaluation[metric].gold_total,
-                    evaluation[metric].system_total,
-                    evaluation[metric].aligned_total or (evaluation[metric].correct if metric == "Words" else "")
-                ))
-            else:
-                print("{:11}|{:10.2f} |{:10.2f} |{:10.2f} |{}".format(
-                    metric,
-                    100 * evaluation[metric].precision,
-                    100 * evaluation[metric].recall,
-                    100 * evaluation[metric].f1,
-                    "{:10.2f}".format(100 * evaluation[metric].aligned_accuracy) if evaluation[metric].aligned_accuracy is not None else ""
-                ))
 
 if __name__ == "__main__":
     main()

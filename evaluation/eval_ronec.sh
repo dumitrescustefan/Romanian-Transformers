@@ -68,15 +68,15 @@ printf "\nFinished.\n"
 
 nice_print "Evaluating model on RONEC..."
 
-[ ! -d "output/$model_basename" ] && mkdir -p "output/$model_basename"
+[ ! -d "outputs/$model_basename" ] && mkdir -p "outputs/$model_basename"
 [ ! -d "results/$model_basename" ] && mkdir -p "results/$model_basename"
 
 printf "Model: %s\n" "$1"
 printf "Load path: %s\n" "$model_frozen_dir"
 printf "Device: %s\n\n" $device
 
-python3 tools/predict.py dataset-ronec/test.conllu "$model_frozen_dir" 10 --lang_model_name "$model" --output_path "output/$model_basename/predict_ronec_frozen.conllu" --device $device --iterations "$iterations"
-output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "output/$model_basename/predict_ronec_frozen.conllu" --iterations "$iterations")
+python3 tools/predict.py dataset-ronec/test.conllu "$model_frozen_dir" 10 --lang_model_name "$model" --output_path "outputs/$model_basename/predict_ronec_frozen.conllu" --device $device --iterations "$iterations"
+output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "outputs/$model_basename/predict_ronec_frozen.conllu" --iterations "$iterations")
 echo "$output"
 echo "$output" > "results/$model_basename/ronec_frozen.txt"
 
@@ -88,8 +88,8 @@ printf "Model: %s\n" "$1"
 printf "Load path: %s\n" "$model_dir"
 printf "Device: %s\n\n" $device
 
-python3 tools/predict.py dataset-ronec/test.conllu "$model_dir" 10 --lang_model_name "$model" --output_path "output/$model_basename/predict_ronec.conllu" --device $device --iterations "$iterations"
-output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "output/$model_basename/predict_ronec.conllu" --iterations "$iterations")
+python3 tools/predict.py dataset-ronec/test.conllu "$model_dir" 10 --lang_model_name "$model" --output_path "outputs/$model_basename/predict_ronec.conllu" --device $device --iterations "$iterations"
+output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "outputs/$model_basename/predict_ronec.conllu" --iterations "$iterations")
 echo "$output"
 echo "$output" > "results/$model_basename/ronec.txt"
 
