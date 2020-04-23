@@ -46,7 +46,7 @@ def main():
             logits = model.forward(test_x, mask)
             preds = torch.argmax(logits, 2)
 
-            end = torch.argmax(mask, dim=1)
+            end = torch.argmax(mask.to("cpu"), dim=1)
 
             labels = label_encoder.inverse_transform(preds[0][1:end].tolist())
             list_labels.append(labels)
@@ -66,8 +66,6 @@ def main():
 
                         token = tokens[args.token_column]
                         subtokens = tokenizer.encode(token, add_special_tokens=False)
-
-                        # print(len(subtokens), label_idx)
 
                         tokens[args.predict_column] = list_labels[sentence_idx][label_idx]
 
