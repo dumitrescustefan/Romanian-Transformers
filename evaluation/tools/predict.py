@@ -94,7 +94,7 @@ if __name__ == "__main__":
     parser.add_argument("model_path", type=str)
     parser.add_argument("predict_column", type=int)
     parser.add_argument("--lang_model_name", type=str, default="bert-base-cased")
-    parser.add_argument("--token_column", type=int, default=0)
+    parser.add_argument("--token_column", type=int, default=1)
     parser.add_argument("--output_path", type=str, default="output/predict.conllu")
     parser.add_argument("--iterations", type=int, default=1)
     parser.add_argument("--separator", type=str, default="\t")
