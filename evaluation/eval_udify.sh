@@ -39,9 +39,9 @@ sed -i '11i\        "pretrained_model": "'"$model"'",' "$udify_config"
 
 sed -i '83i\    "cuda_device": -1,' "$udify_config" 
 
-# [ -d "$save_path" ] && rm -r "$save_path"
+[ -d "$save_path" ] && rm -r "$save_path"
 
-# python3 train.py --config "$udify_config" --name ro_rrt	
+python3 train.py --config "$udify_config" --name ro_rrt
 
 nice_print "Evaluating Udify model on UD Romanian RRT..."
 
