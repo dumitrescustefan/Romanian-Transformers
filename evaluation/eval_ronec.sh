@@ -36,8 +36,9 @@ if [ -n "$3" ]; then
 	device="$3"
 fi
 
-model_frozen_dir="models/$model/ronec_frozen"
-model_dir="models/$model/ronec"
+model_basename=$(basename $model)
+model_frozen_dir="models/$model_basename/ronec_frozen"
+model_dir="models/$model_basename/ronec"
 
 nice_print "Training model on RONEC..."
 
@@ -67,17 +68,17 @@ printf "\nFinished.\n"
 
 nice_print "Evaluating model on RONEC..."
 
-[ ! -d "output/$model" ] && mkdir -p "output/$model"
-[ ! -d "results/$model" ] && mkdir -p "results/$model"
+[ ! -d "output/$model_basename" ] && mkdir -p "output/$model_basename"
+[ ! -d "results/$model_basename" ] && mkdir -p "results/$model_basename"
 
 printf "Model: %s\n" "$1"
 printf "Load path: %s\n" "$model_frozen_dir"
 printf "Device: %s\n\n" $device
 
-python3 tools/predict.py dataset-ronec/test.conllu "$model_frozen_dir" 10 --lang_model_name "$model" --output_path "output/$model/predict_ronec_frozen.conllu" --device $device --iterations "$iterations"
-output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "output/$model/predict_ronec_frozen.conllu" --iterations "$iterations")
+python3 tools/predict.py dataset-ronec/test.conllu "$model_frozen_dir" 10 --lang_model_name "$model" --output_path "output/$model_basename/predict_ronec_frozen.conllu" --device $device --iterations "$iterations"
+output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "output/$model_basename/predict_ronec_frozen.conllu" --iterations "$iterations")
 echo "$output"
-echo "$output" > "results/$model/ronec_frozen.txt"
+echo "$output" > "results/$model_basename/ronec_frozen.txt"
 
 printf "\nFinished.\n"
 
@@ -87,10 +88,10 @@ printf "Model: %s\n" "$1"
 printf "Load path: %s\n" "$model_dir"
 printf "Device: %s\n\n" $device
 
-python3 tools/predict.py dataset-ronec/test.conllu "$model_dir" 10 --lang_model_name "$model" --output_path "output/$model/predict_ronec.conllu" --device $device
-output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "output/$model/predict_ronec.conllu" --iterations "$iterations")
+python3 tools/predict.py dataset-ronec/test.conllu "$model_dir" 10 --lang_model_name "$model" --output_path "output/$model_basename/predict_ronec.conllu" --device $device --iterations "$iterations"
+output=$(python3 tools/ner_eval.py dataset-ronec/test.conllu "output/$model_basename/predict_ronec.conllu" --iterations "$iterations")
 echo "$output"
-echo "$output" > "results/$model/ronec.txt"
+echo "$output" > "results/$model_basename/ronec.txt"
 
 printf "\nFinished.\n"
 
