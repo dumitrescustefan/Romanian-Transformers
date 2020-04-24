@@ -42,6 +42,10 @@ then
   sed -i '83i\    "cuda_device": -1,' "$udify_config"
 fi
 
+if [[ $model == *"uncased"* ]]; then
+  sed -i '12s/.*/        "do_lowercase": true,/' "$udify_config"
+fi
+
 [ -d "$save_path" ] && rm -r "$save_path"
 
 python3 train.py --config "$udify_config" --name ro_rrt
