@@ -45,8 +45,8 @@ The baseline is the [mBert](https://github.com/google-research/bert/blob/master/
 
 | Model                          | Type |  UPOS |  XPOS |  NER  |  LAS  |
 |--------------------------------|:----:|:-----:|:-----:|:-----:|:-----:|
-| bert-base-multilingual-uncased | BERT |   -   |   -   | 68.91 | 88.09 |
-| bert-base-multilingual-cased   | BERT | 94.69 | 90.37 | 69.95 | 88.55 |
+| bert-base-multilingual-uncased | BERT |   -   |   -   |   -   | 88.09 |
+| bert-base-multilingual-cased   | BERT |   -   |   -   |   -   | 88.55 |
 | bert-base-romanian-uncased-v1  | BERT |   -   |   -   |   -   | 89.84 |
 | bert-base-romanian-cased-v1    | BERT |   -   |   -   |   -   | **90.06** |
 
