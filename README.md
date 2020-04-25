@@ -43,12 +43,7 @@ Evaluation is performed on Universal Dependencies [Romanian RRT](https://univers
 
 The baseline is the [mBert](https://github.com/google-research/bert/blob/master/multilingual.md) model ``bert-base-multilingual-(un)cased``, as currently it is the only available model that works on Romanian.
 
-| Model                          | Type |  UPOS |  XPOS |  NER  |  LAS  |
-|--------------------------------|:----:|:-----:|:-----:|:-----:|:-----:|
-| bert-base-multilingual-uncased | BERT |   -   |   -   |   -   | 88.09 |
-| bert-base-multilingual-cased   | BERT |   -   |   -   |   -   | 88.55 |
-| bert-base-romanian-uncased-v1  | BERT |   -   |   -   | 84.50 | 89.84 |
-| bert-base-romanian-cased-v1    | BERT |   -   |   -   | 83.69 | **90.06** |
+(results coming soon as we're rebuilding the automated testing suite)
 
 ## Corpus 
 
