@@ -24,7 +24,7 @@ else
 fi
 
 model_basename=$(basename "$model")
-vocab="$model/vocab.txt"
+vocab="$model"
 
 if [ -n "$2" ]; then
 	device=$2
