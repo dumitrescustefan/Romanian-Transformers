@@ -26,12 +26,21 @@ fi
 model_basename=$(basename "$model")
 vocab="$model/vocab.txt"
 
+if [ -n "$2" ]; then
+	device=$2
+else
+	device="cuda"
+fi
+
+nice_print "Training Udify model on UD Romanian RRT..."
+
+cd udify
+
 if curl --output /dev/null --silent --head --fail "https://s3.amazonaws.com/models.huggingface.co/bert/$model.tar.gz"; then
   printf "Model exists at the URL: 'https://s3.amazonaws.com/models.huggingface.co/bert/%s.tar.gz'. No local download is required.\n" "$model"
 else
-  printf "Model does not exists at the URL: 'https://s3.amazonaws.com/models.huggingface.co/bert/%s.tar.gz'. Downloading...\n" "$model"
+  printf "Model does not exists at the URL: 'https://s3.amazonaws.com/models.huggingface.co/bert/%s.tar.gz'. Downloading in 'pretrained_models'...\n" "$model"
 
-  cd udify
   [ ! -d "pretrained_models" ] && mkdir "pretrained_models"
   cd pretrained_models
 
@@ -46,25 +55,18 @@ else
     printf "\nDownloading 'pytorch_model.bin'...\n"
     curl -o pytorch_model.bin "https://s3.amazonaws.com/models.huggingface.co/bert/$model/pytorch_model.bin"
 
+    printf "\nCompressing the following files in '%s.tar.gz':\n" "$model_basename"
     tar -czvf "$model_basename.tar.gz" pytorch_model.bin bert_config.json vocab.txt
 
     rm pytorch_model.bin bert_config.json vocab.txt
+  else
+    printf "\nModel '%s' already exists in directory 'pretrained_models'" "$model_basename.tar.gz"
   fi
 
   vocab="https://s3.amazonaws.com/models.huggingface.co/bert/$model/vocab.txt"
   model="pretrained_models/$model_basename.tar.gz"
-  cd ../..
+  cd ..
 fi
-
-if [ -n "$2" ]; then
-	device=$2
-else
-	device="cuda"
-fi
-
-nice_print "Training Udify model on UD Romanian RRT..."
-
-cd udify
 
 [ -d "$udify_config" ] && rm "$udify_config"
 cp "$udify_original_config" "$udify_config"
@@ -95,6 +97,6 @@ nice_print "Evaluating Udify model on UD Romanian RRT..."
 model_path="$(find $save_path -name model.tar.gz)"
 cp "$model_path" "../models/$model_basename/udify_model.tar.gz"
 
-python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model_basename/predict.udify.conllu" --device -1
+python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model_basename/predict_rrt_udify.conllu" --device -1
 
 cd ..
