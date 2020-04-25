@@ -37,9 +37,9 @@ nice_print "Training Udify model on UD Romanian RRT..."
 cd udify
 
 if curl --output /dev/null --silent --head --fail "https://s3.amazonaws.com/models.huggingface.co/bert/$model.tar.gz"; then
-  printf "Model exists at the URL: 'https://s3.amazonaws.com/models.huggingface.co/bert/%s.tar.gz'. No local download is required.\n" "$model"
+  printf "Model '$model' exists at the URL: 'https://s3.amazonaws.com/models.huggingface.co/bert/%s.tar.gz'. No local download is required.\n" "$model"
 else
-  printf "Model does not exists at the URL: 'https://s3.amazonaws.com/models.huggingface.co/bert/%s.tar.gz'. Downloading in 'pretrained_models'...\n" "$model"
+  printf "Model '$model' does not exists at the URL: 'https://s3.amazonaws.com/models.huggingface.co/bert/%s.tar.gz'. Downloading in 'pretrained_models'...\n" "$model"
 
   [ ! -d "pretrained_models" ] && mkdir "pretrained_models"
   cd pretrained_models
@@ -60,7 +60,7 @@ else
 
     rm pytorch_model.bin bert_config.json vocab.txt
   else
-    printf "\nModel '%s' already exists in directory 'pretrained_models'" "$model_basename.tar.gz"
+    printf "\nModel '%s' already exists in directory 'pretrained_models'\n\n" "$model_basename.tar.gz"
   fi
 
   vocab="https://s3.amazonaws.com/models.huggingface.co/bert/$model/vocab.txt"
