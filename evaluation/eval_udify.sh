@@ -113,8 +113,10 @@ do
 
   python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model_basename/predict_rrt_udify_$iteration.conllu" --device -1
 
-  cp "logs/ro_rrt/*/metrics.json" "../results/$model_basename/udify_metrics_$iteration.json"
-  cp "logs/ro_rrt/*/test_results.json" "../results/$model_basename/udify_test_results_$iteration.json"
+  metrics_path="$(find $save_path -name metrics.json)"
+  results_path="$(find $save_path -name test_results.json)"
+  cp "$metrics_path" "../results/$model_basename/udify_metrics_$iteration.json"
+  cp "$results_path" "../results/$model_basename/udify_test_results_$iteration.json"
 done
 
 cd ..
