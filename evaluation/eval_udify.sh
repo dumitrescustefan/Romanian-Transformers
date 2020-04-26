@@ -23,14 +23,26 @@ else
 	model=$1
 fi
 
-model_basename=$(basename "$model")
-vocab="$model"
+device="cuda"
 
 if [ -n "$2" ]; then
-	device=$2
+  if  [[ "$2" =~ ^[0-9]+$ ]]
+  then
+	  iterations=$2
+	else
+	  device="$2"
+	  iterations=1
+	fi
 else
-	device="cuda"
+	iterations=1
 fi
+
+if [ -n "$3" ]; then
+	device="$3"
+fi
+
+model_basename=$(basename "$model")
+vocab="$model"
 
 nice_print "Training Udify model on UD Romanian RRT..."
 
@@ -84,19 +96,25 @@ then
   sed -i '83i\    "cuda_device": -1,' "$udify_config"
 fi
 
-
-[ -d "$save_path" ] && rm -r "$save_path"
-
-python3 train.py --config "$udify_config" --name ro_rrt
-
-nice_print "Evaluating Udify model on UD Romanian RRT..."
-
 [ ! -d "../models/$model_basename" ] && mkdir -p "../models/$model_basename"
 [ ! -d "../outputs/$model_basename" ] && mkdir -p "../outputs/$model_basename"
+[ ! -d "../results/$model_basename" ] && mkdir -p "../results/$model_basename"
 
-model_path="$(find $save_path -name model.tar.gz)"
-cp "$model_path" "../models/$model_basename/udify_model.tar.gz"
+for (( iteration=1; iteration<="$iterations"; iteration++ ))
+do
+  [ -d "$save_path" ] && rm -r "$save_path"
 
-python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model_basename/predict_rrt_udify.conllu" --device -1
+  python3 train.py --config "$udify_config" --name ro_rrt
+
+  nice_print "Evaluating Udify model on UD Romanian RRT..."
+
+  model_path="$(find $save_path -name model.tar.gz)"
+  cp "$model_path" "../models/$model_basename/udify_model.tar.gz"
+
+  python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model_basename/predict_rrt_udify_$iteration.conllu" --device -1
+
+  cp "logs/ro_rrt/*/metrics.json" "../results/$model_basename/udify_metrics_$iteration.json"
+  cp "logs/ro_rrt/*/test_results.json" "../results/$model_basename/udify_test_results_$iteration.json"
+done
 
 cd ..
