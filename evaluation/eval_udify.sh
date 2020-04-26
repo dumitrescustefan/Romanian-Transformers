@@ -109,7 +109,7 @@ do
   nice_print "Evaluating Udify model on UD Romanian RRT..."
 
   model_path="$(find $save_path -name model.tar.gz)"
-  cp "$model_path" "../models/$model_basename/udify_model.tar.gz"
+  cp "$model_path" "../models/$model_basename/udify_model_$iteration.tar.gz"
 
   python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model_basename/predict_rrt_udify_$iteration.conllu" --device -1
 
