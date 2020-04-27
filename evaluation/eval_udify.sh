@@ -86,7 +86,7 @@ cp "$udify_original_config" "$udify_config"
 sed -i '34s\.*\          "pretrained_model": "'"$model"'",\' "$udify_config"
 
 if [[ $model == *"uncased"* ]]; then
-  sed -i '12s/.*/        "do_lowercase": true,/' "$udify_config"
+  sed -i '11s/.*/        "do_lowercase": true,/' "$udify_config"
 fi
 
 sed -i '11i\        "pretrained_model": "'"$vocab"'",' "$udify_config"
