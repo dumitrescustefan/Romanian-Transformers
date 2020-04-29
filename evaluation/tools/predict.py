@@ -65,7 +65,8 @@ def main():
                         tokens = line.split(args.separator)
 
                         token = tokens[args.token_column]
-                        subtokens = tokenizer.encode(token, add_special_tokens=False)
+                        subtokens = tokenizer.encode(token, add_special_tokens=False,
+                                                     do_lower_case=True if "uncased" in args.lang_model_name else False)
 
                         tokens[args.predict_column] = list_labels[sentence_idx][label_idx]
 
