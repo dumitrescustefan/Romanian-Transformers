@@ -114,7 +114,8 @@ def train(train_loader, dev_loader, label_encoder, device):
         classes = label_encoder.classes_.tolist()
         classes.remove(args.null_label)
         classes.remove(args.pad_label)
-        # classes.remove("O")
+        if args.remove_o_label:
+            classes.remove("O")
         target_classes = [label_encoder.transform([clss])[0] for clss in classes]
 
         # start training
@@ -169,6 +170,7 @@ if __name__ == "__main__":
     parser.add_argument("--separator", type=str, default="\t")
     parser.add_argument("--pad_label", type=str, default="<pad>")
     parser.add_argument("--null_label", type=str, default="<X>")
+    parser.add_argument("--remove_o_label", action="store_true")
     parser.add_argument("--device", type=str, default="cpu")
 
     args = parser.parse_args()
