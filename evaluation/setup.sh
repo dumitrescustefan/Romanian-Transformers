@@ -18,7 +18,7 @@ function nice_print {
 nice_print "Instaling Udify..."
 
 if [ ! -d $udifydir ]; then
-	git clone https://github.com/Hyperparticle/udify.git
+	git clone https://github.com/jmnybl/udify
 	cd udify
 	pip3 install -r requirements.txt
 
