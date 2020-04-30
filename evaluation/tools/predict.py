@@ -24,7 +24,8 @@ def main():
                                          label_encoder,
                                          False)
 
-    tokenizer = AutoTokenizer.from_pretrained(args.lang_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(args.lang_model_name,
+                                              do_lower_case=True if "uncased" in args.lang_model_name else False)
 
     it_tqdm = tqdm(range(args.iterations))
 
@@ -65,8 +66,7 @@ def main():
                         tokens = line.split(args.separator)
 
                         token = tokens[args.token_column]
-                        subtokens = tokenizer.encode(token, add_special_tokens=False,
-                                                     do_lower_case=True if "uncased" in args.lang_model_name else False)
+                        subtokens = tokenizer.encode(token, add_special_tokens=False)
 
                         tokens[args.predict_column] = list_labels[sentence_idx][label_idx]
 
