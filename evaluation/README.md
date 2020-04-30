@@ -38,9 +38,9 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 
 ##### Named Entity Recognition evaluation:
 
-| Type 	| Model | Entity Type | Partial | Strict | Exact | 
-|------------	| --- | :---: | :---: | :---: | :---: | 
-| BERT       	| mBert-base-cased (frozen) | 73.31 | 74.35 | 65.89 | 69.95 | 
-| BERT       	| mBert-base-uncased (frozen) | 72.96 | 73.33 | 65.07 | 68.91 | 
-| BERT       	| bert-base-romanian-cased-v1 | - | - | - | - | 
-| BERT       	| bert-base-romanian-uncased-v1 | - | - | - | - | 
+| Model                          | Type | Entity Type | Partial | Strict | Exact |
+|--------------------------------|:----:|:-----------:|:-------:|:------:|:-----:|
+| bert-base-multilingual-uncased | BERT |    84.75    |  86.06  |  80.81 | 83.91 |
+| bert-base-multilingual-cased   | BERT |    84.52    |  86.27  |  80.6  | 84.13 |
+| bert-base-romanian-uncased-v1  | BERT |    85.53    |  87.17  |  82.01 | 85.26 |
+| bert-base-romanian-cased-v1    | BERT |    86.21    |  87.84  |  82.54 | 85.88 |
