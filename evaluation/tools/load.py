@@ -14,7 +14,8 @@ def load_data_from_file(path,
                         label_encoder=None,
                         shuffle=True):
     # create the tokenizer for subtokens
-    tokenizer = AutoTokenizer.from_pretrained(lang_model, do_lower_case=True if "uncased" in lang_model else False)
+    tokenizer = AutoTokenizer.from_pretrained(lang_model,
+                                              do_lower_case=True if "uncased" in lang_model else False)
     cls_token_id = tokenizer.cls_token_id
     sep_token_id = tokenizer.sep_token_id
 
@@ -36,8 +37,6 @@ def load_data_from_file(path,
 
                     # subtokenize each token
                     subtokens = tokenizer.encode(token, add_special_tokens=False)
-
-                    print(tokenizer.decode(subtokens), token)
 
                     # add the subtokens to the list of tokens
                     list_tokens += subtokens
