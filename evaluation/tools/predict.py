@@ -24,7 +24,8 @@ def main():
                                          label_encoder,
                                          False)
 
-    tokenizer = AutoTokenizer.from_pretrained(args.lang_model_name)
+    tokenizer = AutoTokenizer.from_pretrained(args.lang_model_name,
+                                              do_lower_case=True if "uncased" in args.lang_model_name else False)
 
     it_tqdm = tqdm(range(args.iterations))
 

@@ -28,6 +28,8 @@ def train_model(model,
                                                 num_warmup_steps=0,  # Default value in run_glue.py
                                                 num_training_steps=total_steps)
 
+    curr_patience = 0
+
     # epoch loop
     for epoch in range(args.epochs):
         train_tqdm = tqdm(train_loader, leave=False)
@@ -79,10 +81,16 @@ def train_model(model,
 
         # if the current macro F1 score is the best one -> save the model
         if macro_f1 > best_f1:
+            curr_patience = 0
             best_f1 = macro_f1
             torch.save(model, os.path.join(args.save_path, "model_{}.pt".format(it + 1)))
             with open(os.path.join(args.save_path, "label_encoder.pk"), "wb") as file:
                 pickle.dump(label_encoder, file)
+        else:
+            curr_patience += 1
+
+        if curr_patience > args.patience:
+            break
 
     return best_f1
 
@@ -114,7 +122,8 @@ def train(train_loader, dev_loader, label_encoder, device):
         classes = label_encoder.classes_.tolist()
         classes.remove(args.null_label)
         classes.remove(args.pad_label)
-        # classes.remove("O")
+        if args.remove_o_label:
+            classes.remove("O")
         target_classes = [label_encoder.transform([clss])[0] for clss in classes]
 
         # start training
@@ -169,6 +178,8 @@ if __name__ == "__main__":
     parser.add_argument("--separator", type=str, default="\t")
     parser.add_argument("--pad_label", type=str, default="<pad>")
     parser.add_argument("--null_label", type=str, default="<X>")
+    parser.add_argument("--remove_o_label", action="store_true")
+    parser.add_argument("--patience", type=int, default=20)
     parser.add_argument("--device", type=str, default="cpu")
 
     args = parser.parse_args()

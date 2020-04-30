@@ -49,7 +49,7 @@ printf "Device: %s\n\n" $device
 
 [ ! -d "$model_frozen_dir" ] && mkdir -p "$model_frozen_dir"
 
-python3 tools/train.py dataset-ronec/train.conllu dataset-ronec/dev.conllu 10 --save_path "$model_frozen_dir" --lang_model_name "$model" --device $device --iterations "$iterations"
+python3 tools/train.py dataset-ronec/train.conllu dataset-ronec/dev.conllu 10 --save_path "$model_frozen_dir" --lang_model_name "$model" --device $device --iterations "$iterations" --remove_o_label
 
 printf "\nFinished.\n"
 
@@ -62,7 +62,7 @@ printf "Device: %s\n" $device
 
 [ ! -d "$model_dir" ] && mkdir -p "$model_dir"
 
-python3 tools/train.py dataset-ronec/train.conllu dataset-ronec/dev.conllu 10 --save_path "$model_dir" --lang_model_name "$model" --device $device --fine_tune --epochs 5 --learning_rate 2e-5 --iterations "$iterations" --batch_size 16
+python3 tools/train.py dataset-ronec/train.conllu dataset-ronec/dev.conllu 10 --save_path "$model_dir" --lang_model_name "$model" --device $device --fine_tune --epochs 10 --learning_rate 2e-5 --iterations "$iterations" --batch_size 16 --remove_o_label
 
 printf "\nFinished.\n"
 

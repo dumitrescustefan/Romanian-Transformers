@@ -24,8 +24,6 @@ if [ ! -d $udifydir ]; then
 
 	mkdir -p config/ud/ro/
 	cp ../config/udify_finetune_ro_rrt.json config/ud/ro/udify_finetune_ro_rrt.json
-	
-  sed -i '16i\from transformers import BertTokenizer' "udify/modules/bert_pretrained.py"
 
 	cd ..
 else
