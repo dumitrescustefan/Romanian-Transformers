@@ -1,12 +1,10 @@
-import argparse
+import argparse, os, pickle, torch
 from load import load_data
-import torch
 from model import LangModelWithDense
-from tqdm import tqdm
+from tqdm.autonotebook import tqdm as tqdm
 from transformers import *
 from utils import Meter
-import os
-import pickle
+
 
 
 def train_model(model,

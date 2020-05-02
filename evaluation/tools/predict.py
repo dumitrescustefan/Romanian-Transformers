@@ -4,7 +4,7 @@ import os
 import pickle
 from load import load_data_from_file
 from transformers import *
-from tqdm import tqdm
+from tqdm.autonotebook import tqdm as tqdm
 
 
 def main():
