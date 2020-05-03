@@ -29,7 +29,7 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 
 #### Universal Dependencies
 
-| Model                          | UPOS (frozen) | XPOS (frozen) | UPOS  |  XPOS |
+| Model                          | UPOS <br> (frozen) | XPOS <br> (frozen) | UPOS  |  XPOS |
 |--------------------------------|:-------------:|:-------------:|:-----:|:-----:|
 | bert-base-multilingual-uncased |       -       |       -       |   -   |   -   |
 | bert-base-multilingual-cased   |     94.46     |      89.5     | 97.87 | 96.16 |
