@@ -27,7 +27,7 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 .\eval_rrt.sh bert-base-multilingual-cased cuda
 ```
 
-##### Universal Dependencies evaluation
+#### Universal Dependencies
 
 | Type 	        | Model Name               	        | UPOS (frozen) 	| XPOS (frozen) 	| UPOS (UDify) 	| UFeats (UDify) 	| Lemmas (UDify) 	| LAS (UDify) 	|
 |------------	|-------------------------------	|:-------------:	|:-------------:	|:------------:	|:--------------:	|:--------------:	|:-----------:	|
@@ -36,11 +36,11 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 | BERT       	| bert-base-romanian-cased-v1   	|               	|               	|              	|                	|                	|             	|
 | BERT       	| bert-base-romanian-uncased-v1 	|               	|               	|              	|                	|                	|             	|
 
-##### Named Entity Recognition evaluation:
+#### Named Entity Recognition
 
-| Model                          | Type | Entity Type | Partial | Strict | Exact |
-|--------------------------------|:----:|:-----------:|:-------:|:------:|:-----:|
-| bert-base-multilingual-uncased | BERT |    84.75    |  86.06  |  80.81 | 83.91 |
-| bert-base-multilingual-cased   | BERT |    84.52    |  86.27  |  80.6  | 84.13 |
-| bert-base-romanian-uncased-v1  | BERT |    85.53    |  87.17  |  82.01 | 85.26 |
-| bert-base-romanian-cased-v1    | BERT |    **86.21**    |  **87.84**  |  **82.54** | **85.88** |
+| Model                          | Entity Type | Partial | Strict | Exact |
+|--------------------------------|:-----------:|:-------:|:------:|:-----:|
+| bert-base-multilingual-uncased |    84.75    |  86.06  |  80.81 | 83.91 |
+| bert-base-multilingual-cased   |    84.52    |  86.27  |  80.6  | 84.13 |
+| bert-base-romanian-uncased-v1  |    85.53    |  87.17  |  82.01 | 85.26 |
+| bert-base-romanian-cased-v1    |    **86.21**    |  **87.84**  |  **82.54** | **85.88** |
