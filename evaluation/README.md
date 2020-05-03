@@ -29,12 +29,21 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 
 #### Universal Dependencies
 
-| Type 	        | Model Name               	        | UPOS (frozen) 	| XPOS (frozen) 	| UPOS (UDify) 	| UFeats (UDify) 	| Lemmas (UDify) 	| LAS (UDify) 	|
-|------------	|-------------------------------	|:-------------:	|:-------------:	|:------------:	|:--------------:	|:--------------:	|:-----------:	|
-| BERT       	| mBert-base-cased                 	|       94.69      	|      90.37         	|     97.92         	|                	|                	|             	|
-| BERT       	| mBert-base-uncased               	|               	|               	|              	|                	|                	|             	|
-| BERT       	| bert-base-romanian-cased-v1   	|               	|               	|              	|                	|                	|             	|
-| BERT       	| bert-base-romanian-uncased-v1 	|               	|               	|              	|                	|                	|             	|
+| Model                          | UPOS (frozen) | XPOS (frozen) | UPOS  |  XPOS |
+|--------------------------------|:-------------:|:-------------:|:-----:|:-----:|
+| bert-base-multilingual-uncased |       -       |       -       |   -   |   -   |
+| bert-base-multilingual-cased   |     94.46     |      89.5     | 97.87 | 96.16 |
+| bert-base-romanian-uncased-v1  |       -       |       -       |   -   |   -   |
+| bert-base-romanian-cased-v1    |     **96.49**     |     **95.01**     | **98.00** | **96.46** |
+
+#### Universal Dependencies with UDify
+
+| Model                          | UPOS | XPOS | UFeats | LAS |
+|--------------------------------|:----:|:----:|:------:|:---:|
+| bert-base-multilingual-uncased |   -  |   -  |    -   |  -  |
+| bert-base-multilingual-cased   |   -  |   -  |    -   |  -  |
+| bert-base-romanian-uncased-v1  |   -  |   -  |    -   |  -  |
+| bert-base-romanian-cased-v1    |   -  |   -  |    -   |  -  |
 
 #### Named Entity Recognition
 
