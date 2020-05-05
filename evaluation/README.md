@@ -31,10 +31,10 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 
 | Model                          | UPOS <br> (frozen) | XPOS <br> (frozen) | UPOS  |  XPOS |
 |--------------------------------|:-------------:|:-------------:|:-----:|:-----:|
-| bert-base-multilingual-uncased |       -       |       -       |   -   |   -   |
-| bert-base-multilingual-cased   |     94.46     |      89.5     | 97.87 | 96.16 |
-| bert-base-romanian-uncased-v1  |       -       |       -       |   -   |   -   |
-| bert-base-romanian-cased-v1    |     **96.49**     |     **95.01**     | **98.00** | **96.46** |
+| bert-base-multilingual-uncased |     95.48     |      89.84    | 97.65 | 95.72 |
+| bert-base-multilingual-cased   |     94.46     |      89.50    | 97.87 | 96.16 |
+| bert-base-romanian-uncased-v1  |     **96.55**     |      **95.14**    | **98.18** | **96.84** |
+| bert-base-romanian-cased-v1    |     96.49     |      95.01    | 98.00 | 96.46 |
 
 #### Universal Dependencies with UDify
 
@@ -42,7 +42,7 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 |--------------------------------|:----:|:----:|:------:|:---:|
 | bert-base-multilingual-uncased |   -  |   -  |    -   |  -  |
 | bert-base-multilingual-cased   |   -  |   -  |    -   |  -  |
-| bert-base-romanian-uncased-v1  |   -  |   -  |    -   |  -  |
+| bert-base-romanian-uncased-v1  |   97.90  |   97.02  |    94.92   |  89.6  |
 | bert-base-romanian-cased-v1    |   -  |   -  |    -   |  -  |
 
 #### Named Entity Recognition
