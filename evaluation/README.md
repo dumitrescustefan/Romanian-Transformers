@@ -38,7 +38,7 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 
 #### Universal Dependencies with UDify
 
-| Model                          | UPOS | XPOS | UFeats | LAS |
+| Model                          | UPOS | UFeats | Lemma | LAS |
 |--------------------------------|:----:|:----:|:------:|:---:|
 | bert-base-multilingual-uncased |   -  |   -  |    -   |  -  |
 | bert-base-multilingual-cased   |   -  |   -  |    -   |  -  |
