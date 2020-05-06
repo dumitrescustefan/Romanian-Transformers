@@ -40,7 +40,7 @@ Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on R
 
 | Model                          | UPOS | UFeats | Lemma | LAS |
 |--------------------------------|:----:|:----:|:------:|:---:|
-| bert-base-multilingual-uncased |   -  |   -  |    -   |  -  |
+| bert-base-multilingual-uncased |   97.74  |   96.48  |    94.60   |  87.56  |
 | bert-base-multilingual-cased   |   -  |   -  |    -   |  -  |
 | bert-base-romanian-uncased-v1  |   97.90  |   97.02  |    94.92   |  89.6  |
 | bert-base-romanian-cased-v1    |   -  |   -  |    -   |  -  |
