@@ -39,7 +39,7 @@ The [AutoTokenizer](https://huggingface.co/transformers/model_doc/auto.html#auto
 
 ### Short example: Load a Pre-Trained model
 The BERT model requires that the input should be in torch tensor format. After converting from python lists to torch tensors,
-the shape remains the same.
+the shape remains the same. More details about BERT can be found here [BERT](http://jalammar.github.io/illustrated-bert/)
 
 ``from_pretrained`` method will download a pretrained model from HuggingFace. In order to output all hidden layers in the model,
 we create a  ``BertConfig`` variable in which we set ``output_hidden_states=True``.
@@ -127,11 +127,11 @@ where the word has different meanings.
 
 ### Short example: Sentence embeddings
 
-To obtain a sentence embeddings we have multiple options. A simple approach could be to average the hidden layer of each token and obtain a vector of shape 768.
+To obtain a sentence embeddings we have multiple options. A simple approach could be to average all the hidden layers of each token and obtain a vector of shape (768,).
 
 ``get_tokkens_embeddings_summ`` will return a vector of shape (768,) which will represent the sentence embedding.
 
-``sentence_similarity`` compares the cosine distance between two sentence embeddings.
+``sentence_similarity`` compares the cosine distance between two sentence embeddings similar to word embeddings.
 
 
 ```python
@@ -142,12 +142,11 @@ def get_sentence_embeddings(sentence, max_length=16):
     ids_sentences = tokenizer.encode(sentence, add_special_tokens=True,
                                     pad_to_max_length=True,
                                     max_length=max_length)
-    ids_segments = [1] * len(ids_sentences)
+
     input_tensor = torch.tensor(ids_sentences).unsqueeze(0)  # Batch size 1
-    segments_tensor = torch.tensor(ids_segments).unsqueeze(0) # batch size 1 
 
     with torch.no_grad():
-        _, _, hidden_states = model(input_tensor, segments_tensor)
+        _, _, hidden_states = model(input_tensor)
     
     token_vecs = hidden_states[12][0]
 
@@ -177,3 +176,5 @@ print("Semantic similarity between first and third sentence is {}".format(senten
 ```
 As we can see in the first sentence the meaning is closer to the second sentence than to the third. This is reflected by the cosine distance.
 Interesting to observe is that the third sentence is more close to the first sentence than to the second, probably because they both have 'am fost' words in them.
+
+More details can be found here [colab](https://colab.research.google.com/drive/1L2_UnNSxJn6FCYL0as5Q1DoOGdh3ejqM#scrollTo=Wl9OUN_TvNDQ)
