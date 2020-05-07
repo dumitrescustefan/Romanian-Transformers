@@ -38,6 +38,11 @@ tokenizer was created with a WordPiece model to deal with out of vocabulary word
 The [AutoTokenizer](https://huggingface.co/transformers/model_doc/auto.html#autotokenizer) is a class that automatically wraps up several transformer models. For example, here are the [operations](https://huggingface.co/transformers/model_doc/bert.html#berttokenizer) you can do if you load the BERT model.
 
 ### Short example: Load a Pre-Trained model
+The BERT model requires that the input should be in torch tensor format. After converting from python lists to torch tensors,
+the shape remains the same.
+
+``from_pretrained`` method will download a pretrained model from HuggingFace. In order to output all hidden layers in the model,
+we create a  ``BertConfig`` variable in which we set ``output_hidden_states=True``.
 
 ```python
 import torch
@@ -60,8 +65,18 @@ print(last_hidden_states.shape)
 pooler_output = outputs[1]
 print(pooler_output.shape)
 ```
+When fetching the output of the model, ``torch.no_grad()`` deactivates the gradient calculation and speed up computation by saving memory.
+We don't need gradients since we are running only forward pass of the input.
 
 ### Short example: Token embeddings
+
+For each token in the input, the ``hidden_states`` from the output will contain 13 separate vectors of size 768. 
+To obtain an individual vector for each token we may take the summ of the last 6 vectors from the ``hidden_states``. Other methods like concatenation can be used.
+Feel free to experiment with different methods.
+
+``get_tokkens_embeddings_summ`` will return a list of embeddings for each word in input sentence. We have to chose a max_length for the input_tensor. BERT has a limit at 512 tokens for an input tensor. Longer inputs must be truncated. This is a well known problem for BERT where longer documents classifications is a challenge. We will face this challenge in an advanced tutorial. 
+
+``tokens_similarity`` compares the cosine distance between embeddings at certain positions in the embeddings list.
 
 ```python
 def get_tokkens_embeddings_summ(sentence, max_length=32):
@@ -70,12 +85,11 @@ def get_tokkens_embeddings_summ(sentence, max_length=32):
     ids_sentence = tokenizer.encode(sentence, add_special_tokens=True,
                                                 pad_to_max_length=True,
                                                  max_length=max_length)
-    attn = [1] * len(ids_sentence)
+
     input_tensor = torch.tensor(ids_sentence).unsqueeze(0)  # Batch size 1
-    attn_tensor = torch.tensor(attn).unsqueeze(0) # batch size 1 
 
     with torch.no_grad():
-        _, _, hidden_states = model(input_tensor, attn_tensor)
+        _, _, hidden_states = model(input_tensor)
                                     
     token_embeddings = torch.stack(hidden_states, dim=0).squeeze(1).permute(1,0,2)
     
@@ -98,8 +112,8 @@ def tokens_similarity(tokens_emb, idx1, idx2):
 
 sentence1 = "Am mers pe lac si am inotat in lac."
 sentence2 = "Lebedele inotau pe lac si am dat cu lac pe unghii."
-tokens_emb1 = get_tokkens_embeddings_concat(sentence1)
-tokens_emb2 = get_tokkens_embeddings_concat(sentence2)
+tokens_emb1 = get_tokkens_embeddings_summ(sentence1)
+tokens_emb2 = get_tokkens_embeddings_summ(sentence2)
 
 print("Semantic similarity between tokens 'lac' in the first sentence is {}".format(tokens_similarity(tokens_emb1, 3, 9)))
 # Semantic similarity between tokens 'lac' in the first sentence is 0.7684007287025452
@@ -107,8 +121,18 @@ print("Semantic similarity between tokens 'lac' in the second sentence is {}".fo
 # Semantic similarity between tokens 'lac' in the second sentence is 0.6081207394599915
 ```
 
+As we can see in the first sentence the word 'lac' has the same meaning in both uses and the model returns a greater score than in the second sentence
+where the word has different meanings.
+
 
 ### Short example: Sentence embeddings
+
+To obtain a sentence embeddings we have multiple options. A simple approach could be to average the hidden layer of each token and obtain a vector of shape 768.
+
+``get_tokkens_embeddings_summ`` will return a vector of shape (768,) which will represent the sentence embedding.
+
+``sentence_similarity`` compares the cosine distance between two sentence embeddings.
+
 
 ```python
 from scipy.spatial.distance import cosine
@@ -151,3 +175,5 @@ print("Semantic similarity between second and third sentence is {}".format(sente
 print("Semantic similarity between first and third sentence is {}".format(sentence_similarity(sentence1, sentence3)))
 # Semantic similarity between first and third sentence is 0.7526880502700806
 ```
+As we can see in the first sentence the meaning is closer to the second sentence than to the third. This is reflected by the cosine distance.
+Interesting to observe is that the third sentence is more close to the first sentence than to the second, probably because they both have 'am fost' words in them.
