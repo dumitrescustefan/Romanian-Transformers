@@ -1,11 +1,12 @@
 import torch
 from torch import nn
 from utils import Mish
+import pytorch_lightning as pl
 
-class SentimentModel(nn.Module):
+class SentimentModel(pl.LightningModule):
     
     def __init__(self, model,
-                 tokenizer,
+                tokenizer,
                 output_size,
                 embedding_size=768,
                 dropout=0.1

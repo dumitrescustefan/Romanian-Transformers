@@ -1,4 +1,4 @@
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 
 class SentimentDataset(Dataset):
     def __init__(self, df):
