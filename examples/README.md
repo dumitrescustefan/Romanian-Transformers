@@ -4,9 +4,9 @@ Here you can find a few examples on how to use the transformers in common scenar
  * How to [load a pre-trained model](#short-example-tokenize-a-text)
  * How to [get a token embedding and compare similarity to another token](#short-example-token-embeddings)
  * How to [get a sentence embedding and compare similarity to another sentence](#short-example-sentence-embeddings)
- * Advanced: How to train and use a transformer-based model for [Named Entity Recognition](ner/README.md)
- * Advanced: How to train and use a transformer-based model for [Document Classification](doc_classification/README.md)
- * Advanced: How to train and use a transformer-based model for [Sentiment Analysis](sentiment_analysis/README.md)
+ * Advanced: How to train and use a transformer-based model for [Named Entity Recognition](ner)
+ * Advanced: How to train and use a transformer-based model for [Document Classification](doc_classification)
+ * Advanced: How to train and use a transformer-based model for [Sentiment Analysis](sentiment_analysis)
 
 ### Short example: Tokenize a text
 
