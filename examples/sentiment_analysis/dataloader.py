@@ -40,11 +40,7 @@ class SentimentDataLoaders:
         test_dataloader = DataLoader(
                             test_dataset,
                             batch_size=self.hparams.batch_size,
-                            shuffle=True
+                            shuffle=False
                             )
 
         return train_dataloader, valid_dataloader, test_dataloader
-
-
-
-

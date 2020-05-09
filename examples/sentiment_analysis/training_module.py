@@ -9,12 +9,13 @@ from functools import lru_cache
 from argparse import Namespace
 
 class TrainingModule(pl.LightningModule):
-    def __init__(self, bert_model=None, tokenizer=None, hparams=None):
+    def __init__(self, bert_model=None, tokenizer=None, hparams=None, device=None):
         super().__init__()
-        self.model = SentimentModel(bert_model, tokenizer, output_size=2)
+        self.model = SentimentModel(bert_model, tokenizer, output_size=2, device=device)
         self.loss = nn.CrossEntropyLoss()
         self.hparams = hparams
         self.dataloader = SentimentDataLoaders(hparams)
+        self.device = device
 
     def step(self, batch, step_name="train"):
         X, y = batch
@@ -36,7 +37,7 @@ class TrainingModule(pl.LightningModule):
         return self.step(batch, "valid")
 
     def validation_end(self, outputs):
-        loss = torch.stack([x["valid_loss"] for x in outputs]).mean()
+        loss = torch.stack([x["valid_loss"] for x in outputs]).mean().to(self.device)
         return {"valid_loss": loss}
 
     def test_step(self, batch, batch_idx):
