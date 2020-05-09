@@ -4,7 +4,7 @@ Here you can find a colab example on how to use the transformers for sentiment a
  * [sentiment_analysis](https://colab.research.google.com/drive/1vKv1Kp9omFr9y4HlFWUGmiYjHgk5XD0m#scrollTo=FU-8vkP25DfU)
 
 In `data_exploration.ipynb` we can observe that the dataset is imbalanced, so we used a custom sampler to balance the dataset. Also we observe that
-than 75% of dataset has lenght under 124, so we set max_length for BERT input to 256.
+than 75% of dataset has lenght under 124, so we set max_length for sentences to 256.
 
 ## Evaluation Results
 
