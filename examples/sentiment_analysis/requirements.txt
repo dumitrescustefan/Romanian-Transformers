@@ -1,0 +1,4 @@
+torch
+transformers
+tokenizers 
+pytorch-lightning
