@@ -1,31 +1,22 @@
 # Evaluation (under construction)
 
-Here are the tools used to evaluate our models on. 
+Here are the tools used to evaluate our models on. We currently evaluate on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) (RRT) as well as on [Romanian Named Entity Corpus](https://github.com/dumitrescustefan/ronec) (RONEC). 
 
-We currently evaluate on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) tasks as well as on the [Romanian Named Entity Corpus](https://github.com/dumitrescustefan/ronec) task. Details are given in the [evaluation readme](evauation/README.md) NER task. 
+## Scripts
 
-Note that the ``eval_rrt.sh`` evaluates the model with **frozen** weights, meaning that the parameters of the model are untouched; during the evaluation only the head (a single feedforward with dropout) is trained. The ``eval_udify.sh`` uses UDify which **fine-tunes** the weights of the model jointly with the (more-complex) heads.
-
-## Setup
-Run the `setup.sh` script to download and configure the [UD Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) (RRT), [Romanian Named Entity Corpus](https://github.com/dumitrescustefan/ronec) (RONEC) and [Udify](https://github.com/Hyperparticle/udify). 
+Run the `setup.sh` script to download the datasets and configure the environment. 
 
 ```
 .\setup.sh
 ```
 
-## Evaluation
-
-Run the `eval_rrt.sh`, `eval_ronec.sh`, `eval_udify.sh` to evaluate a model on RRT, RONEC and on RRT with Udify, respectively. You must provide as argument either the [model name](https://huggingface.co/transformers/pretrained_models.html) or the model path, saved in [HuggingFace's format](https://huggingface.co/transformers/main_classes/model.html#pretrainedmodel). For instance, the following will start training a multilingual BERT cased on RRT:
+Run `eval_*.sh` to start the evaluation of a model on one of the tasks. You must specify either the name of the model (from HuggingFace repository), or the path to the model (saved in HuggingFace format). You can also specify the number of iteration for each experiment as the second (optional) parameter of the script (the default is 1). The evaluation will automatically start on the GPU. You can specify the device you want to evaluate on as the third argument of the script.
 
 ```
-.\eval_rrt.sh bert-base-multilingual-cased
+eval_*.sh [language_model_name] [no_iteration] [device]
 ```
 
-**Warning!** If no GPU is automatically detected, the evaluation process will start on the CPU (this is totally not recommended). However, you can provide the running `device` as the second argument if the automatic detection fails. Training on `cuda`, using the above example: 
-
-```
-.\eval_rrt.sh bert-base-multilingual-cased cuda
-```
+## Results
 
 #### Universal Dependencies
 
