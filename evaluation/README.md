@@ -10,11 +10,18 @@ Run the `setup.sh` script to download the datasets and configure the environment
 .\setup.sh
 ```
 
-Run `eval_*.sh` to start the evaluation of a model on one of the tasks. You must specify either the name of the model (from HuggingFace repository), or the path to the model (saved in HuggingFace format). You can also specify the number of iteration for each experiment as the second (optional) parameter of the script (the default is 1). The evaluation will automatically start on the GPU. You can specify the device you want to evaluate on as the third argument of the script.
+Run `eval_*.sh` to start the evaluation of a model on one of the tasks. Each script will save the models in `models/`, the outputs in `outputs/` and the results (for each model and the average) in `results/`.
 
 ```
-eval_*.sh [language_model_name] [no_iteration] [device]
+.\eval_*.sh [language_model_name] [no_iterations] [device]
 ```
+
+where:
+
+- `lang_model_name` - The name of the model (from HuggingFace repository) or the path to the model (saved in HuggingFace format).
+- `no_iterations` (optional) - Number of experiments for each task. Default value: `1`.
+- `device` (optional) - The device to run the evaluation on. Default value: `cuda`.
+
 
 ## Results
 
