@@ -1,13 +1,13 @@
-# Evaluation (under construction)
+# Evaluation
 
 Here are the tools used to evaluate our models on. We currently evaluate on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) (RRT) as well as on [Romanian Named Entity Corpus](https://github.com/dumitrescustefan/ronec) (RONEC). 
 
-We provide the following evaluation scripts:
-- **eval_rrt.sh** - 
-- **eval_ronec.sh** - 
-- **eval_udify.sh** - 
+We are evaluating on three token-labeling tasks: 
+- **Raw Universal Dependencies** (script ``eval_rrt.sh``) - A model is evaluated on the UPOS (Universal Part-of-Speech) tag and the XPOS (eXtended Part-of-Speech) tag. The model must correctly predict the UPOS & XPOS tags for each word in a sentence. The model itself is basic: the transformer encodes each word and a single dense layer with a fixed dropout predicts the output label. The script runs the model 4 times: on UPOS and XPOS with the transformer parameters frozen, and the same UPOS and XPOS with all the parameters unfrozen (trainable). 
+- **Joined Universal Dependencies** (script ``eval_udify.sh``) - We've automated the [UDify](https://github.com/Hyperparticle/udify) tool to fine-tune the model and report results on test data. UDify is a single model that parses Universal Dependencies (UPOS, UFeats, Lemmas, Deps) jointly, using a transformer to provide word embeddings. We report results on the UPOS, UFeats, Lemma and UAS tasks. 
+- **Named Entity Recognition** (script ``eval_ronec.sh``) - The model used to perform NER is a transformer that, for each token, predicts a BIO-style label on one of the 16 classes in [RONEC](https://github.com/dumitrescustefan/ronec). 
 
-## Running Tutorial
+## Setup & run
 
 Run the `setup.sh` script to download the datasets and configure the environment. 
 
@@ -27,8 +27,18 @@ where:
 - `no_iterations` (optional) - Number of experiments for each task. Default value: `1`.
 - `device` (optional) - The device to run the evaluation on. Default value: `cuda`.
 
+For example, run a cased multilingual BERT on RONEC five times (it will automatically average results over the five iterations in ``results/``:
+```
+.\eval_ronec.sh bert-base-multilingual-cased 5
+```
+.. or, run the uncased Romanian BERT on UDify once (Note: UDify is the only tool that does not (yet) have automatic iteration results averaging):
+```
+.\eval_udify.sh dumitrescustefan/bert-base-romanian-uncased-v1 1
+```
 
 ## Results
+
+All results reported below are the averages of 5 random-seed runs.
 
 #### Universal Dependencies
 
