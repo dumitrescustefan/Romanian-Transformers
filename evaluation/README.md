@@ -2,7 +2,12 @@
 
 Here are the tools used to evaluate our models on. We currently evaluate on Universal Dependencies [Romanian RRT](https://universaldependencies.org/treebanks/ro_rrt/index.html) (RRT) as well as on [Romanian Named Entity Corpus](https://github.com/dumitrescustefan/ronec) (RONEC). 
 
-## Scripts
+We provide the following evaluation scripts:
+- **eval_rrt.sh** - 
+- **eval_ronec.sh** - 
+- **eval_udify.sh** - 
+
+## Running Tutorial
 
 Run the `setup.sh` script to download the datasets and configure the environment. 
 
