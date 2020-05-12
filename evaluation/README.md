@@ -54,9 +54,9 @@ All results reported below are the averages of 5 random-seed runs.
 | Model                          | UPOS | UFeats | Lemma | LAS |
 |--------------------------------|:----:|:----:|:------:|:---:|
 | bert-base-multilingual-uncased |   97.72  |   96.54  |    94.67   |  87.65  |
-| bert-base-multilingual-cased   |   -  |   -  |    -   |  -  |
-| bert-base-romanian-uncased-v1  |   97.91 | 97.01 | 94.93 | 89.61  |
-| bert-base-romanian-cased-v1    |   97.90 | 97.22 | 94.88 | **89.69**  |
+| bert-base-multilingual-cased   |   97.90 | 96.71 | **95.20** | 88.05 |
+| bert-base-romanian-uncased-v1  |   **97.91** | 97.01 | 94.93 | 89.61  |
+| bert-base-romanian-cased-v1    |   97.90 | **97.22** | 94.88 | **89.69**  |
 
 #### Named Entity Recognition
 
