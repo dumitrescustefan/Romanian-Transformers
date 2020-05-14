@@ -83,18 +83,24 @@ fi
 [ -d "$udify_config" ] && rm "$udify_config"
 cp "$udify_original_config" "$udify_config"
 
-sed -i '34s\.*\          "pretrained_model": "'"$model"'",\' "$udify_config"
+sed -i '37s\.*\          "pretrained_model": "'"$model"'",\' "$udify_config"
 
 if [[ $model == *"uncased"* ]]; then
   sed -i '11s/.*/        "do_lowercase": true,/' "$udify_config"
 fi
 
-sed -i '11i\        "pretrained_model": "'"$vocab"'",' "$udify_config"
-
 if [ "$device" == "cpu" ]
 then
-  sed -i '83i\    "cuda_device": -1,' "$udify_config"
+  sed -i '86i\    "cuda_device": -1,' "$udify_config"
 fi
+
+sed -i '23i\    "bert_vocab": "'"$vocab"'",' "$udify_config"
+
+if [[ $model == *"uncased"* ]]; then
+  sed -i '24i\    "do_lowercase": true,' "$udify_config"
+fi
+
+sed -i '11i\        "pretrained_model": "'"$vocab"'",' "$udify_config"
 
 [ ! -d "../models/$model_basename" ] && mkdir -p "../models/$model_basename"
 [ ! -d "../outputs/$model_basename" ] && mkdir -p "../outputs/$model_basename"
@@ -104,7 +110,7 @@ for (( iteration=1; iteration<="$iterations"; iteration++ ))
 do
   [ -d "$save_path" ] && rm -r "$save_path"
 
-  python3 train.py --config "$udify_config" --name ro_rrt
+  python3 train.py --config "$udify_config" --name ro_rrt --replace_vocab
 
   nice_print "Evaluating Udify model on UD Romanian RRT..."
 
@@ -113,9 +119,7 @@ do
 
   python3 predict.py "$model_path" ../dataset-rrt/test.conllu "../outputs/$model_basename/predict_rrt_udify_$iteration.conllu" --device -1
 
-  metrics_path="$(find $save_path -name metrics.json)"
   results_path="$(find $save_path -name test_results.json)"
-  cp "$metrics_path" "../results/$model_basename/udify_metrics_$iteration.json"
   cp "$results_path" "../results/$model_basename/udify_test_results_$iteration.json"
 done
 
