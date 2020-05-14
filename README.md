@@ -6,7 +6,7 @@
 This repo is meant as a space to centralize Romanian Transformers.
 We start small, with a pretrained BERT, and we'll add more models as resources become available. 
 
-We're using [HuggingFace's Transformers](https://github.com/huggingface/transformers) lib, an awesome tool for NLP. 
+We're using [HuggingFace's Transformers](https://github.com/huggingface/transformers) lib, an awesome tool for NLP. What's BERT you ask? Here's a [clear and condensed article](https://skok.ai/2020/05/11/Top-Down-Introduction-to-BERT.html) about what BERT is and what it can do. 
 
 ## Releases
 
