@@ -177,4 +177,4 @@ print("Semantic similarity between first and third sentence is {}".format(senten
 As we can see in the first sentence the meaning is closer to the second sentence than to the third. This is reflected by the cosine distance.
 Interesting to observe is that the third sentence is more close to the first sentence than to the second, probably because they both have 'am fost' words in them.
 
-More details can be found here [colab](https://colab.research.google.com/drive/1L2_UnNSxJn6FCYL0as5Q1DoOGdh3ejqM#scrollTo=Wl9OUN_TvNDQ)
+For a more detailed introduction please follow [colab](https://colab.research.google.com/drive/1L2_UnNSxJn6FCYL0as5Q1DoOGdh3ejqM#scrollTo=Wl9OUN_TvNDQ).
