@@ -1,9 +1,28 @@
-### Sentiment analysis
+## Sentiment analysis
 
-The code is modular for easier reading and reusability. All the modules are imported in `sentiment_analysis.ipynb` notebook which is then runned in Google's colaboratory.
+### Description
+
+The goal of this project is to fine-tune BERT model on Romanian sentiment dataset. 
+The code is modular for easier reading and reusability. All the modules are imported in `sentiment_analysis.ipynb` 
+notebook which is then runned in Google's colaboratory.
+
+## How to run
+
+Install dependencies
+
+```python
+# clone project
+git clone git@github.com:dumitrescustefan/Romanian-Transformers.git
+
+cd Romanian-Transformers/examples/sentiment_analysis
+pip install -r requirements.txt
+
+# run jupyter notebook
+jupyter lab
+```
+
 Here you can find the colab example on how to use the transformers for sentiment analysis:
  * [sentiment_analysis](https://colab.research.google.com/drive/1vKv1Kp9omFr9y4HlFWUGmiYjHgk5XD0m#scrollTo=FU-8vkP25DfU)
-
 
 ### Dataset
 
