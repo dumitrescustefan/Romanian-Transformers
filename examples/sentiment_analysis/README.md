@@ -8,12 +8,13 @@ notebook which is then runned in Google's colaboratory.
 
 ## How to run
 
-Install dependencies
+Here is an example on how to run experiment on local machine:
 
 ```python
 # clone project
 git clone git@github.com:dumitrescustefan/Romanian-Transformers.git
 
+# install dependencies
 cd Romanian-Transformers/examples/sentiment_analysis
 pip install -r requirements.txt
 
@@ -21,7 +22,7 @@ pip install -r requirements.txt
 jupyter lab
 ```
 
-Here you can find the colab example on how to use the transformers for sentiment analysis:
+Here you can find the colab example on how to run the experiment:
  * [sentiment_analysis](https://colab.research.google.com/drive/1vKv1Kp9omFr9y4HlFWUGmiYjHgk5XD0m#scrollTo=FU-8vkP25DfU)
 
 ### Dataset
