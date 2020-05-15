@@ -6,7 +6,7 @@ The goal of this project is to fine-tune BERT model on Romanian sentiment datase
 The code is modular for easier reading and reusability. All the modules are imported in `sentiment_analysis.ipynb` 
 notebook which is then runned in Google's colaboratory.
 
-## How to run
+### How to run
 
 Here is an example on how to run experiment on local machine:
 
