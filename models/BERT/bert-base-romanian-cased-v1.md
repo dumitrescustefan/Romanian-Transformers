@@ -29,7 +29,7 @@ The baseline is the [Multilingual BERT](https://github.com/google-research/bert/
 | Model                          |  UPOS |  XPOS  |  NER  |  LAS  |
 |--------------------------------|:-----:|:------:|:-----:|:-----:|
 | bert-base-multilingual-cased   | 97.87 |  96.16 | 84.13 | 88.04 |
-| bert-base-romanian-cased-v1    | 98.00 |  96.46 | **85.88** | **89.69** |
+| bert-base-romanian-cased-v1    | **98.00** |  **96.46** | **85.88** | **89.69** |
 
 ### Corpus 
 
