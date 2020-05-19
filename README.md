@@ -72,6 +72,10 @@ If you like this repo, you could help out with:
 - Evaluation: we'd like to extend our evaluation on more datasets; give us a heads up if you have a dataset suitable to benchmark models on, like sentiment analysis, textual entailment, etc. 
 - More models: We'd like to train larger models (e.g. RoBERTa) as well as smaller ones (ALBERT, ELECTRA, DistillBERT). Want to help?
 
+## Contributors
+
+[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/0)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/0)[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/1)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/1)[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/2)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/2)[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/3)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/3)[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/4)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/4)[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/5)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/5)[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/6)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/6)[![](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/images/7)](https://sourcerer.io/fame/avramandrei/dumitrescustefan/Romanian-Transformers/links/7)
+
 ## Acknowledgements
 
 - We'd like to thank [Sampo Pyysalo](https://github.com/spyysalo) from TurkuNLP for helping us out with the compute needed to pretrain the v1.0 BERT models. He's awesome!
