@@ -7,6 +7,9 @@ The corpus is, in version 1, composed of:
 - OSCAR (based on CommonCrawl)
 - OPUS (all the Romanian monolingual data)
 
+**Note**: The wiki version `rowiki-20200220-pages-articles.xml` that we used on our experiments is no longer available. We switched to the latest version to 
+allow further compatibility with the scripts.
+
 ## Corpus details
 Please see [here](CORPUS_DETAILS.md) all the details about size and cleaning statistics.
 The rest of this page is dedicated to running the download and cleaning process step by step.
