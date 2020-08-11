@@ -10,7 +10,7 @@ lines = []
 
 brk = 40000
 print("Extracting text from xml ...")
-for title, text in tqdm(iterate('raw/wiki/rowiki-20200220-pages-articles.xml')):
+for title, text in tqdm(iterate('raw/wiki/rowiki-latest-pages-articles.xml')):
     #if brk<=0:
     #    break
     #brk-=1
