@@ -106,7 +106,14 @@ def train(train_loader, dev_loader, label_encoder, device):
     for it in it_tqdm:
         # select the desired language model and get the embeddings size
         lang_model = AutoModel.from_pretrained(args.lang_model_name)
-        input_size = 768 if "base" in args.lang_model_name else 1024
+        if "small" in args.lang_model_name:
+            input_size = 256
+        elif "base" in args.lang_model_name:
+            input_size = 768
+        elif "large" in args.lang_model_name:
+            input_size = 1024
+        else:
+            raise ValueError("Model size '{}' is not supported".format(args.lang_model_name))
 
         # create the model, the optimizer (weights are set to 0 for <pad> and <X>) and the loss function
         model = LangModelWithDense(lang_model, input_size, len(label_encoder.classes_), args.fine_tune).to(device)
