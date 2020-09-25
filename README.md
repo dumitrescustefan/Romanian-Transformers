@@ -77,3 +77,14 @@ If you like this repo, you could help out with:
 ## Acknowledgements
 
 - We'd like to thank [Sampo Pyysalo](https://github.com/spyysalo) from TurkuNLP for helping us out with the compute needed to pretrain the v1.0 BERT models. He's awesome!
+
+## Cite
+Please consider citing the following [paper](https://arxiv.org/abs/2009.08712) as a thank you to the authors of the Romanian BERT: 
+```
+@article{dumitrescu2020birth,
+  title={The birth of Romanian BERT},
+  author={Dumitrescu, Stefan Daniel and Avram, Andrei-Marius and Pyysalo, Sampo},
+  journal={arXiv preprint arXiv:2009.08712},
+  year={2020}
+}
+```
