@@ -75,7 +75,7 @@ def load_data_from_file(path,
 
     # pad the tokens, the labels and the masks
     X = torch.nn.utils.rnn.pad_sequence(list_all_tokens, batch_first=True, padding_value=tokenizer.pad_token_id).to(device)
-    y = torch.nn.utils.rnn.pad_sequence(list_all_encoded_labels, batch_first=True, padding_value=label_encoder.transform([pad_label])[0]).to(device)
+    y = torch.nn.utils.rnn.pad_sequence(list_all_encoded_labels, batch_first=True, padding_value=label_encoder.transform([pad_label])[0]).long().to(device)
     masks = torch.nn.utils.rnn.pad_sequence(list_all_masks, batch_first=True, padding_value=0).to(device)
 
     # create the loader
