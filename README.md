@@ -29,7 +29,7 @@ tokenizer = AutoTokenizer.from_pretrained("dumitrescustefan/bert-base-romanian-c
 model = AutoModel.from_pretrained("dumitrescustefan/bert-base-romanian-cased-v1")
 
 # tokenize a sentence and run through the model
-input_ids = torch.tensor(tokenizer.encode("Acesta este un test.", add_special_tokens=True)).unsqueeze(0)  # Batch size 1
+input_ids = tokenizer.encode("Acesta este un test.", add_special_tokens=True, return_tensors="pt")
 outputs = model(input_ids)
 
 # get encoding
