@@ -107,6 +107,8 @@ for line in tqdm(cleaned_lines):
     clean_size += len(line)
 
 print("Writing ...")
+if not os.path.exists("clean"):
+    os.makedirs("clean")
 clean_file = os.path.join("clean","wiki.txt")
 with open(clean_file,"w", encoding="utf8") as clean_f:
     for line in lines:
