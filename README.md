@@ -36,7 +36,10 @@ outputs = model(input_ids)
 last_hidden_states = outputs[0]  # The last hidden-state is the first element of the output tuple
 ```
 
-We're in the process of writing a guide with practical examples. Check back soon!
+* For BERT, remember to correct the s/t diacritics before feeding it to the model (it was trained only with the correct, comma-style diacritics, and will see the cedilla s an t as UNKs thus decrease performance): 
+```
+text = text.replace("ţ", "ț").replace("ş", "ș").replace("Ţ", "Ț").replace("Ş", "Ș")
+```
 
 ## Evaluation
 
