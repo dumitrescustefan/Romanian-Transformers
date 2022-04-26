@@ -1,6 +1,3 @@
-![Python](https://img.shields.io/badge/Python-3-brightgreen)
-![Latest%20BERT](https://img.shields.io/badge/Latest%20BERT-v1.0-informational)
-
 # Romanian Transformers
 
 This repo is meant as a space to centralize Romanian Transformers and to provide a uniform evaluation. Contributions are welcome.
