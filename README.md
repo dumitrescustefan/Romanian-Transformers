@@ -26,12 +26,15 @@ Feel free to open an issue and add your model/eval here!
 
 ## Generative Language Models (CLMs)
 
-| **Model**                                                                                                               	| **Type**   	| **Size** 	| **Article/Citation/Source**                                                                	| **Pre-trained / Fine-tuned**                                                                                                                                                                   	| **Release Date** 	|
-|-------------------------------------------------------------------------------------------------------------------------	|------------	|----------	|--------------------------------------------------------------------------------------------	|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|------------------	|
-| [readerbench/RoGPT2-base](https://huggingface.co/readerbench/RoGPT2-base)                                               	| GPT2       	| 124M     	| [PDF](https://ieeexplore.ieee.org/document/9643330)                                        	|  Pre-trained                                                                                                                                                                                   	| Jul, 2021        	|
-| [readerbench/RoGPT2-medium](https://huggingface.co/readerbench/RoGPT2-medium)                                           	| GPT2       	| 354M     	| [PDF](https://ieeexplore.ieee.org/document/9643330)                                        	|   Pre-trained                                                                                                                                                                                  	| Jul, 2021        	|
-| [readerbench/RoGPT2-large](https://huggingface.co/readerbench/RoGPT2-large)                                             	| GPT2       	| 774M     	| [PDF](https://ieeexplore.ieee.org/document/9643330)                                        	|   Pre-trained                                                                                                                                                                                  	| Jul, 2021        	|
+| **Model**                                                                                                               	| **Type**   	      | **Size** 	 | **Article/Citation/Source**                                                                	 | **Pre-trained / Fine-tuned**                                                                                                                                                                   	| **Release Date** 	|
+|-------------------------------------------------------------------------------------------------------------------------	|-------------------|------------|----------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|------------------	|
+| [dumitrescustefan/gpt-neo-romanian-780m](https://huggingface.co/dumitrescustefan/gpt-neo-romanian-780m                  	| GPT-Neo      	    | 780M     	 | not yet                                        	                                             |  Pre-trained                                                                                                                                                                                   	| Jul, 2021        	|
+| [readerbench/RoGPT2-base](https://huggingface.co/readerbench/RoGPT2-base)                                               	| GPT2       	      | 124M     	 | [PDF](https://ieeexplore.ieee.org/document/9643330)                                        	 |  Pre-trained                                                                                                                                                                                   	| Jul, 2021        	|
+| [readerbench/RoGPT2-medium](https://huggingface.co/readerbench/RoGPT2-medium)                                           	| GPT2       	      | 354M     	 | [PDF](https://ieeexplore.ieee.org/document/9643330)                                        	 |   Pre-trained                                                                                                                                                                                  	| Jul, 2021        	|
+| [readerbench/RoGPT2-large](https://huggingface.co/readerbench/RoGPT2-large)                                             	| GPT2       	      | 774M     	 | [PDF](https://ieeexplore.ieee.org/document/9643330)                                        	 |   Pre-trained                                                                                                                                                                                  	| Jul, 2021        	|
 
+
+NEW: Check out this HF Space to play with Romanian generative models: [https://huggingface.co/spaces/dumitrescustefan/romanian-text-generation](https://huggingface.co/spaces/dumitrescustefan/romanian-text-generation)
 
 ## Model evaluation
 
@@ -88,10 +91,6 @@ last_hidden_states = outputs[0]  # The last hidden-state is the first element of
 ```
 text = text.replace("ţ", "ț").replace("ş", "ș").replace("Ţ", "Ț").replace("Ş", "Ș")
 ```
-
-##### Perform sequence classification
-
-_more examples to be added soon_ 
 
 #### Write text with generative models
 
