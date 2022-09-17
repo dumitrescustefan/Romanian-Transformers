@@ -107,6 +107,8 @@ text = model.generate(input_ids, max_length=128, do_sample=True, no_repeat_ngram
 print(tokenizer.decode(text[0], skip_special_tokens=True))
 ```
 
+P.S. You can test all generative models here: [https://huggingface.co/spaces/dumitrescustefan/romanian-text-generation](https://huggingface.co/spaces/dumitrescustefan/romanian-text-generation)
+
 ### Final note
 
 * While this repo initially started as an in-depth of a single transformer model back in 2020, with the express hope that more models would be added quickly, it turned out that training a good model is not that easy, and it takes a lot of effort to curate the data and then have access to sufficient compute power. So, I feel it's no longer useful to just list a couple of models, and it would make more impact to list all the models I could find that are Romanian-only, and have a minimal level of performance/documentation. Here you go :)
